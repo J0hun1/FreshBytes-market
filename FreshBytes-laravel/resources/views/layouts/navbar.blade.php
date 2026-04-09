@@ -58,7 +58,7 @@
           <div class="grid grid-cols-2">
             <div>
               <a href="#" class="truncate text-sm font-semibold leading-none text-gray-900 dark:text-white hover:underline">Apple iPhone 15</a>
-              <p class="mt-0.5 truncate text-sm font-normal text-gray-500 dark:text-gray-400">$599</p>
+₱599
             </div>
       
             <div class="flex items-center justify-end gap-6">
@@ -80,7 +80,7 @@
           <div class="grid grid-cols-2">
             <div>
               <a href="#" class="truncate text-sm font-semibold leading-none text-gray-900 dark:text-white hover:underline">Apple iPad Air</a>
-              <p class="mt-0.5 truncate text-sm font-normal text-gray-500 dark:text-gray-400">$499</p>
+₱499
             </div>
       
             <div class="flex items-center justify-end gap-6">
@@ -102,7 +102,7 @@
           <div class="grid grid-cols-2">
             <div>
               <a href="#" class="truncate text-sm font-semibold leading-none text-gray-900 dark:text-white hover:underline">Apple Watch SE</a>
-              <p class="mt-0.5 truncate text-sm font-normal text-gray-500 dark:text-gray-400">$598</p>
+₱598
             </div>
       
             <div class="flex items-center justify-end gap-6">
@@ -124,7 +124,7 @@
           <div class="grid grid-cols-2">
             <div>
               <a href="#" class="truncate text-sm font-semibold leading-none text-gray-900 dark:text-white hover:underline">Sony Playstation 5</a>
-              <p class="mt-0.5 truncate text-sm font-normal text-gray-500 dark:text-gray-400">$799</p>
+₱799
             </div>
       
             <div class="flex items-center justify-end gap-6">
@@ -146,7 +146,7 @@
           <div class="grid grid-cols-2">
             <div>
               <a href="#" class="truncate text-sm font-semibold leading-none text-gray-900 dark:text-white hover:underline">Apple iMac 20"</a>
-              <p class="mt-0.5 truncate text-sm font-normal text-gray-500 dark:text-gray-400">$8,997</p>
+₱8,997
             </div>
       
             <div class="flex items-center justify-end gap-6">

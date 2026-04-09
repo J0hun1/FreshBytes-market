@@ -4,7 +4,7 @@
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
 
-        <title>{{ config('app.name', 'FreshBytes') }}</title>
+        <title>{{ config('app.name', 'FreshBytes Market') }}</title>
 
         <link rel="icon" type="image/png" href="/images/logos-12-12.png">
 
@@ -27,6 +27,7 @@
             @endif
             @include('layouts.category-cards')
              @include('layouts.product-cards')
+             @include('layouts.footer')
         </main>
 
     </body>
