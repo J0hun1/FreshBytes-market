@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Models\Category;
 use App\Http\Controllers\CartController;
+use App\Http\Controllers\AuthController;
 use App\Models\Product;
 
 Route::get('/', function () {
@@ -101,3 +102,15 @@ Route::get('/products/{id}', function ($id) {
 
 Route::post('/cart/add/{id}', [CartController::class, 'add'])->name('cart.add');
 Route::get('/cart', [CartController::class, 'index'])->name('cart.index');
+
+Route::middleware('guest')->group(function () {
+    Route::get('/login', [AuthController::class, 'showLogin'])->name('auth.login');
+    Route::post('/login', [AuthController::class, 'login'])->name('auth.login.submit');
+
+    Route::get('/signup', [AuthController::class, 'showSignup'])->name('auth.signup');
+    Route::post('/signup', [AuthController::class, 'signup'])->name('auth.signup.submit');
+});
+
+Route::post('/logout', [AuthController::class, 'logout'])->middleware('auth')->name('auth.logout');
+Route::post('/auth/google', [AuthController::class, 'google'])->name('auth.google');
+Route::match(['get', 'post'], '/forgot-password', [AuthController::class, 'forgotPassword'])->name('auth.forgot-password');

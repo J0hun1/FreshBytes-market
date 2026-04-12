@@ -39,6 +39,11 @@ class User extends Authenticatable
         return $this->hasMany(Product::class, 'user_id');
     }
 
+    public function getAuthPassword(): string
+    {
+        return $this->password_hash;
+    }
+
     /**
      * Get the attributes that should be cast.
      *
@@ -48,7 +53,7 @@ class User extends Authenticatable
     {
         return [
             'email_verified_at' => 'datetime',
-            'password' => 'hashed',
+            'password_hash' => 'hashed',
         ];
     }
 }

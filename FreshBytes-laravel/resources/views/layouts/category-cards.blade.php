@@ -1,43 +1,33 @@
-<section class=" py-8 antialiased dark:bg-gray-900 md:py-16">
-    <div class="w-full px-4">
-        <div class="mb-4 flex items-center justify-between gap-4 md:mb-8">
-            <h2 class="text-xl font-semibold text-gray-900 dark:text-white sm:text-2xl">Shop by category</h2>
+<section class="category-wrap">
+    <div class="content-shell">
+        <p class="section-overline">Shop by Category</p>
+        <h2 class="section-title">Popular on FreshBytes</h2>
 
-            <a href="#" title=""
-                class="flex items-center text-base font-medium text-primary-700 hover:underline dark:text-primary-500">
-                See more categories
-                <svg class="ms-1 h-5 w-5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24"
-                    fill="none" viewBox="0 0 24 24">
-                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                        d="M19 12H5m14 0-4 4m4-4-4-4" />
-                </svg>
-            </a>
-        </div>
+        @php
+            $cardBackgrounds = ['#d5dfd1', '#ead7de', '#e7e3e3', '#d6e0cf', '#e9dccc'];
+            $categoryImages = [
+                'Leafy Greens' => 'https://images.unsplash.com/photo-1522184216316-3c25379f9760?auto=format&fit=crop&w=500&q=80',
+                'Berries' => 'https://images.unsplash.com/photo-1464965911861-746a04b4bca6?auto=format&fit=crop&w=500&q=80',
+                'Legumes' => 'https://images.unsplash.com/photo-1592921870789-04563d55041c?auto=format&fit=crop&w=500&q=80',
+                'Root Vegetables' => 'https://images.unsplash.com/photo-1598170845058-32b9d6a5da37?auto=format&fit=crop&w=500&q=80',
+                'Tropical Fruits' => 'https://images.unsplash.com/photo-1619566636858-adf3ef46400b?auto=format&fit=crop&w=500&q=80',
+                'Herbs' => 'https://images.unsplash.com/photo-1501004318641-b39e6451bec6?auto=format&fit=crop&w=500&q=80',
+                'Fresh Fruits' => 'https://images.unsplash.com/photo-1610832958506-aa56368176cf?auto=format&fit=crop&w=500&q=80',
+                'Cruciferous' => 'https://images.unsplash.com/photo-1587049352851-8d4e89133924?auto=format&fit=crop&w=500&q=80',
+                'Mushrooms' => 'https://images.unsplash.com/photo-1504545102780-26774c1bb073?auto=format&fit=crop&w=500&q=80',
+                'Citrus Fruits' => 'https://images.unsplash.com/photo-1611080626919-7cf5a9dbab5b?auto=format&fit=crop&w=500&q=80',
+                'Alliums' => 'https://images.unsplash.com/photo-1518977676601-b53f82aba655?auto=format&fit=crop&w=500&q=80',
+                'Organic' => 'https://images.unsplash.com/photo-1542838132-92c53300491e?auto=format&fit=crop&w=500&q=80'
+            ];
+        @endphp
 
-        <div class="w-full grid gap-4 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
-            @foreach($categories as $category)
-                <a href="#"
-                    class="flex items-center rounded-lg border border-gray-200 bg-white px-4 py-2 hover:bg-gray-50 dark:border-gray-700 dark:bg-gray-800 dark:hover:bg-gray-700">
-                    @php
-                        $icon = match($category->category_name) {
-                            'Leafy Greens' => '<svg class="me-2 h-4 w-4 text-green-600" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 21c10 0 14-8 14-14C9 7 5 11 5 21Zm0 0c0-6 4-10 10-10" /></svg>',
-                            'Root Vegetables' => '<svg class="me-2 h-4 w-4 text-orange-500" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3c3 3 3 6 3 9s-2 6-3 9c-1-3-3-6-3-9s0-6 3-9Zm0 0 3-1M12 3 9 2" /></svg>',
-                            'Fresh Fruits' => '<svg class="me-2 h-4 w-4 text-red-500" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 7c-3-3-8 1-6 6 2 5 6 7 6 7s4-2 6-7c2-5-3-9-6-6Z" /><path stroke-linecap="round" stroke-width="2" d="M12 7V3" /></svg>',
-                            'Citrus Fruits' => '<svg class="me-2 h-4 w-4 text-yellow-500" fill="none" viewBox="0 0 24 24" stroke="currentColor"><circle cx="12" cy="12" r="8" stroke-width="2" /><path stroke-width="2" d="M12 4v16M4 12h16M7 7l10 10M17 7 7 17" /></svg>',
-                            'Berries' => '<svg class="me-2 h-4 w-4 text-pink-500" fill="none" viewBox="0 0 24 24" stroke="currentColor"><circle cx="10" cy="10" r="2" stroke-width="2" /><circle cx="14" cy="10" r="2" stroke-width="2" /><circle cx="12" cy="14" r="2" stroke-width="2" /><path stroke-width="2" d="M12 6V3" /></svg>',
-                            'Tropical Fruits' => '<svg class="me-2 h-4 w-4 text-yellow-600" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-width="2" d="M12 3 9 6l3 1 3-1-3-3ZM8 10c0-2 2-3 4-3s4 1 4 3-2 7-4 7-4-5-4-7Z" /></svg>',
-                            'Cruciferous' => '<svg class="me-2 h-4 w-4 text-green-700" fill="none" viewBox="0 0 24 24" stroke="currentColor"><circle cx="9" cy="10" r="3" stroke-width="2" /><circle cx="15" cy="10" r="3" stroke-width="2" /><circle cx="12" cy="7" r="3" stroke-width="2" /><path stroke-width="2" d="M12 13v6" /></svg>',
-                            'Alliums' => '<svg class="me-2 h-4 w-4 text-purple-500" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-width="2" d="M12 3c3 3 5 6 5 9a5 5 0 0 1-10 0c0-3 2-6 5-9Z" /><path stroke-width="2" d="M12 3v18" /></svg>',
-                            'Legumes' => '<svg class="me-2 h-4 w-4 text-green-500" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-width="2" d="M4 12c4-5 12-5 16 0-4 5-12 5-16 0Z" /><circle cx="9" cy="12" r="1" /><circle cx="12" cy="12" r="1" /><circle cx="15" cy="12" r="1" /></svg>',
-                            'Herbs' => '<svg class="me-2 h-4 w-4 text-green-400" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-width="2" d="M6 21c6-2 10-6 12-14-8 2-12 6-12 14Z" /></svg>',
-                            'Mushrooms' => '<svg class="me-2 h-4 w-4 text-gray-600" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-width="2" d="M6 12a6 6 0 0 1 12 0H6Zm6 0v6" /></svg>',
-                            'Organic' => '<svg class="me-2 h-4 w-4 text-emerald-600" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-width="2" d="M12 3c5 2 7 6 7 10a7 7 0 0 1-14 0c0-4 2-8 7-10Z" /><path stroke-width="2" d="M12 3v18" /></svg>',
-                            default => '<svg class="me-2 h-4 w-4 text-gray-500" fill="none" viewBox="0 0 24 24" stroke="currentColor"><circle cx="12" cy="12" r="8" stroke-width="2" /></svg>'
-                        };
-                    @endphp
-                    {!! $icon !!}
-                    <span class="text-sm font-medium text-gray-900 dark:text-white">{{ $category->category_name }}</span>
-                </a>
+        <div class="category-grid">
+            @foreach($categories->take(5) as $index => $category)
+                <article class="category-card" style="background-color: {{ $cardBackgrounds[$index % count($cardBackgrounds)] }};">
+                    <h3>{{ $category->category_name }}</h3>
+                    <p>{{ $products->where('category_id', $category->category_id)->count() }} Items</p>
+                    <img src="{{ $categoryImages[$category->category_name] ?? 'https://images.unsplash.com/photo-1557844352-761f2565b576?auto=format&fit=crop&w=500&q=80' }}" alt="{{ $category->category_name }}">
+                </article>
             @endforeach
         </div>
     </div>

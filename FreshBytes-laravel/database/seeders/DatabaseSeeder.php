@@ -6,9 +6,11 @@ use App\Models\User;
 use App\Models\Seller;
 use App\Models\Category;
 use App\Models\Product;
+use Illuminate\Support\Facades\Artisan;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Schema;
 
 class DatabaseSeeder extends Seeder
 {
@@ -19,8 +21,21 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-        // Disable foreign key checks
-        DB::statement('SET FOREIGN_KEY_CHECKS=0;');
+        $requiredTables = ['users', 'sellers', 'categories', 'products'];
+
+        // Allow db:seed to be the first command on a fresh database.
+        foreach ($requiredTables as $table) {
+            if (! Schema::hasTable($table)) {
+                Artisan::call('migrate', ['--force' => true]);
+                break;
+            }
+        }
+
+        if (DB::getDriverName() === 'sqlite') {
+            DB::statement('PRAGMA foreign_keys = OFF;');
+        } else {
+            DB::statement('SET FOREIGN_KEY_CHECKS=0;');
+        }
 
         // Truncate tables to avoid duplicates
         DB::table('products')->truncate();
@@ -28,8 +43,11 @@ class DatabaseSeeder extends Seeder
         DB::table('categories')->truncate();
         DB::table('users')->truncate();
 
-        // Enable foreign key checks
-        DB::statement('SET FOREIGN_KEY_CHECKS=1;');
+        if (DB::getDriverName() === 'sqlite') {
+            DB::statement('PRAGMA foreign_keys = ON;');
+        } else {
+            DB::statement('SET FOREIGN_KEY_CHECKS=1;');
+        }
 
         // Insert specific user
         DB::table('users')->insert([

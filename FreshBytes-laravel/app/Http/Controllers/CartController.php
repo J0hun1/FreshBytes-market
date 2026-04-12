@@ -1,4 +1,4 @@
-<<?php
+<?php
 
 namespace App\Http\Controllers;
 
@@ -32,5 +32,4 @@ class CartController extends Controller
         return view('cart.index', compact('cart'));
     }
 }
-?>
 
