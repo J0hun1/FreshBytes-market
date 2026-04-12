@@ -103,11 +103,11 @@ Route::get('/products/{id}', function ($id) {
 Route::post('/cart/add/{id}', [CartController::class, 'add'])->name('cart.add');
 Route::get('/cart', [CartController::class, 'index'])->name('cart.index');
 
-Route::middleware('guest')->group(function () {
-    Route::get('/login', [AuthController::class, 'showLogin'])->name('auth.login');
-    Route::post('/login', [AuthController::class, 'login'])->name('auth.login.submit');
+Route::get('/login', [AuthController::class, 'showLogin'])->name('auth.login');
+Route::get('/signup', [AuthController::class, 'showSignup'])->name('auth.signup');
 
-    Route::get('/signup', [AuthController::class, 'showSignup'])->name('auth.signup');
+Route::middleware('guest')->group(function () {
+    Route::post('/login', [AuthController::class, 'login'])->name('auth.login.submit');
     Route::post('/signup', [AuthController::class, 'signup'])->name('auth.signup.submit');
 });
 
