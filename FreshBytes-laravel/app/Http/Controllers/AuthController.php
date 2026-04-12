@@ -12,13 +12,21 @@ use Illuminate\View\View;
 
 class AuthController extends Controller
 {
-    public function showLogin(): View
+    public function showLogin(): View|RedirectResponse
     {
+        if (Auth::check()) {
+            return redirect()->route('market.home');
+        }
+
         return view('auth.login');
     }
 
-    public function showSignup(): View
+    public function showSignup(): View|RedirectResponse
     {
+        if (Auth::check()) {
+            return redirect()->route('market.home');
+        }
+
         return view('auth.signup');
     }
 
@@ -32,7 +40,7 @@ class AuthController extends Controller
         if (Auth::attempt(['email' => $credentials['email'], 'password' => $credentials['password']], $request->boolean('remember'))) {
             $request->session()->regenerate();
 
-            return redirect()->intended('/')->with('status', 'Welcome back!');
+            return redirect()->route('market.home')->with('status', 'Welcome back!');
         }
 
         return back()
@@ -65,7 +73,7 @@ class AuthController extends Controller
         Auth::login($user);
         $request->session()->regenerate();
 
-        return redirect('/')->with('status', 'Account created successfully.');
+        return redirect()->route('market.home')->with('status', 'Account created successfully.');
     }
 
     public function logout(Request $request): RedirectResponse

@@ -12,6 +12,12 @@ Route::get('/', function () {
     return view('welcome', compact('categories', 'products'));
 });
 
+Route::get('/market', function () {
+    $categories = Category::where('category_isActive', true)->get();
+    $products = Product::where('is_active', true)->get();
+    return view('market-home', compact('categories', 'products'));
+})->name('market.home');
+
 $products = [
     1 => [
         'name' => 'Apple iMac 27", 1TB HDD, Retina 5K Display, M3 Max',
