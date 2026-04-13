@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use Illuminate\Http\Request;
 use App\Models\Category;
 use App\Http\Controllers\CartController;
+use App\Http\Controllers\SellerController;
 use App\Http\Controllers\AuthController;
 use App\Models\Product;
 
@@ -148,4 +149,9 @@ Route::middleware('guest')->group(function () {
 
 Route::post('/logout', [AuthController::class, 'logout'])->middleware('auth')->name('auth.logout');
 Route::post('/auth/google', [AuthController::class, 'google'])->name('auth.google');
+
+Route::middleware('auth')->group(function () {
+Route::get('/seller/register', [SellerController::class, 'create'])->name('seller.register');
+Route::post('/seller/register', [SellerController::class, 'store']);
+});
 Route::match(['get', 'post'], '/forgot-password', [AuthController::class, 'forgotPassword'])->name('auth.forgot-password');
