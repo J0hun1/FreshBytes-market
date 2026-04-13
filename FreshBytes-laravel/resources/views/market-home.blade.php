@@ -12,13 +12,6 @@
 </head>
 <body class="market-page-body">
     @php
-        $featuredCategories = [
-            ['name' => 'Leafy Greens', 'label' => '50 Products', 'image' => '/images/LeafyGreens_NOBG.png'],
-            ['name' => 'Root Vegetables', 'label' => '32 Products', 'image' => '/images/RootVeg_NOBG.png'],
-            ['name' => 'Tropical Fruits', 'label' => '41 Products', 'image' => '/images/TropicalFruits_NOBG.png'],
-            ['name' => 'Berries', 'label' => '12 Products', 'image' => '/images/BERRIES_NOBG.png'],
-        ];
-
         $productImages = [
             'Eggplant' => 'https://images.unsplash.com/photo-1518735869015-566a18eae4be?auto=format&fit=crop&w=640&q=80',
             'Lettuce' => 'https://images.unsplash.com/photo-1622205313162-be1d5712a43f?auto=format&fit=crop&w=640&q=80',
@@ -29,7 +22,18 @@
             'Pechay' => 'https://images.unsplash.com/photo-1618040996337-56904b7850b9?auto=format&fit=crop&w=640&q=80',
         ];
 
+        $categoryImages = [
+            'Leafy Greens' => '/images/LeafyGreens_NOBG.png',
+            'Root Vegetables' => '/images/RootVeg_NOBG.png',
+            'Tropical Fruits' => '/images/TropicalFruits_NOBG.png',
+            'Berries' => '/images/BERRIES_NOBG.png',
+        ];
+
         $cards = $products->take(8);
+        $recommendedCards = ($recommendedProducts ?? collect())->take(8);
+        if ($recommendedCards->isEmpty()) {
+            $recommendedCards = $products->take(8);
+        }
     @endphp
 
     <div class="market-bg-glow market-bg-glow-a"></div>
@@ -86,12 +90,20 @@
             </div>
 
             <div class="market-menubar">
-                <a class="market-categories-btn" href="#featured-categories" aria-label="All Categories">
-                    <span>All Categories</span>
-                    <svg viewBox="0 0 24 24"><path d="M7 10l5 5 5-5z"/></svg>
-                </a>
+                <details class="market-categories">
+                    <summary class="market-categories-btn" aria-label="All Categories">
+                        <span>All Categories</span>
+                        <svg viewBox="0 0 24 24"><path d="M7 10l5 5 5-5z"/></svg>
+                    </summary>
+                    <div class="market-categories-menu">
+                        <a href="{{ route('market.home') }}">All Products</a>
+                        @foreach($categories as $category)
+                            <a href="{{ route('market.home', ['category' => $category->category_id, 'q' => request('q')]) }}">{{ $category->category_name }}</a>
+                        @endforeach
+                    </div>
+                </details>
                 <nav class="market-menu-links" aria-label="Primary">
-                    <a href="#home">Home</a>
+                    <a href="{{ route('market.home') }}">Home</a>
                     <a href="#featured-categories">Features</a>
                     <a href="#fresh-near-you">Shop</a>
                     <a href="#market-footer">FAQs</a>
@@ -114,15 +126,17 @@
             <section class="market-section" id="featured-categories">
                 <div class="market-section-head">
                     <h2>Featured Categories</h2>
-                    <a href="#featured-categories">View all</a>
+                    <a href="{{ route('market.home') }}">View all</a>
                 </div>
 
                 <div class="market-featured-grid">
-                    @foreach($featuredCategories as $cat)
+                    @foreach(($featuredCategories ?? collect())->take(4) as $cat)
                         <article class="market-featured-card">
-                            <img src="{{ $cat['image'] }}" alt="{{ $cat['name'] }}">
-                            <h3>{{ strtoupper($cat['name']) }}</h3>
-                            <p>{{ $cat['label'] }}</p>
+                            <a href="{{ route('market.home', ['category' => $cat->category_id]) }}">
+                                <img src="{{ $categoryImages[$cat->category_name] ?? '/images/market_banner.png' }}" alt="{{ $cat->category_name }}">
+                            </a>
+                            <h3>{{ strtoupper($cat->category_name) }}</h3>
+                            <p>{{ $products->where('category_id', $cat->category_id)->count() }} Products</p>
                         </article>
                     @endforeach
                 </div>
@@ -161,6 +175,10 @@
                                     <span class="market-badge {{ $badge === 'Withered' ? 'warn' : ($badge === 'Slightly Withered' ? 'mid' : 'ok') }}">{{ $badge }}</span>
                                     <span class="market-verified">Verified</span>
                                 </div>
+                                <form action="{{ route('cart.add', $product->product_id) }}" method="post" class="market-cart-form">
+                                    @csrf
+                                    <button type="submit" class="market-cart-btn">Add to cart</button>
+                                </form>
                             </div>
                         </article>
                     @endforeach
@@ -174,7 +192,7 @@
                 </div>
 
                 <div class="market-product-grid">
-                    @foreach($cards as $product)
+                    @foreach($recommendedCards as $product)
                         @php
                             $distance = number_format(($product->product_id % 4) + 1.4, 1);
                             $hoursAgo = ($product->product_id % 6) + 1;
@@ -200,6 +218,10 @@
                                     <span class="market-badge {{ $badge === 'Withered' ? 'warn' : ($badge === 'Slightly Withered' ? 'mid' : 'ok') }}">{{ $badge }}</span>
                                     <span class="market-verified">Verified</span>
                                 </div>
+                                <form action="{{ route('cart.add', $product->product_id) }}" method="post" class="market-cart-form">
+                                    @csrf
+                                    <button type="submit" class="market-cart-btn">Add to cart</button>
+                                </form>
                             </div>
                         </article>
                     @endforeach

@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use Illuminate\Http\Request;
 use App\Models\Category;
 use App\Http\Controllers\CartController;
 use App\Http\Controllers\AuthController;
@@ -12,10 +13,38 @@ Route::get('/', function () {
     return view('welcome', compact('categories', 'products'));
 });
 
-Route::get('/market', function () {
-    $categories = Category::where('category_isActive', true)->get();
-    $products = Product::where('is_active', true)->get();
-    return view('market-home', compact('categories', 'products'));
+Route::get('/market', function (Request $request) {
+    $categories = Category::where('category_isActive', true)
+        ->orderBy('category_name')
+        ->get();
+
+    $query = Product::where('is_active', true)->where('is_deleted', false);
+
+    if ($request->filled('q')) {
+        $q = $request->string('q')->toString();
+        $query->where(function ($builder) use ($q) {
+            $builder->where('product_name', 'like', "%{$q}%")
+                ->orWhere('product_brief_description', 'like', "%{$q}%")
+                ->orWhere('product_location', 'like', "%{$q}%");
+        });
+    }
+
+    if ($request->filled('category')) {
+        $query->where('category_id', (int) $request->input('category'));
+    }
+
+    $products = $query->latest('post_date')->get();
+
+    $featuredCategories = $categories->take(4);
+    $recommendedProducts = Product::where('is_active', true)
+        ->where('is_deleted', false)
+        ->when($request->filled('category'), fn ($builder) => $builder->where('category_id', (int) $request->input('category')))
+        ->orderByDesc('top_rated')
+        ->orderByDesc('sell_count')
+        ->limit(8)
+        ->get();
+
+    return view('market-home', compact('categories', 'products', 'featuredCategories', 'recommendedProducts'));
 })->name('market.home');
 
 $products = [
