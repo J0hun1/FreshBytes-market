@@ -1318,7 +1318,7 @@ body.landing-page-body::after {
 body.market-page-body {
     margin: 0;
     min-height: 100vh;
-    background: var(--fb-surface);
+    background: linear-gradient(181.23deg, #093216 27.52%, #16dcc7 222.22%);
     color: #fff;
     font-family: 'Open Sans', sans-serif;
     overflow-x: clip;
@@ -1369,7 +1369,7 @@ body.market-page-body {
     position: relative;
     z-index: 20;
     background: linear-gradient(181.23deg, #093216 27.52%, #16dcc7 222.22%);
-    border-radius: 0 0 20px 20px;
+    border-radius: 0;
 }
 .market-main,
 .market-footer {
@@ -1477,6 +1477,8 @@ body.market-page-body {
     display: flex;
     align-items: center;
     gap: 24px;
+    position: relative;
+    min-height: 67px;
 }
 
 .market-categories {
@@ -1548,6 +1550,11 @@ body.market-page-body {
     align-items: center;
     flex-wrap: wrap;
     gap: 26px;
+    position: absolute;
+    width: 721px;
+    height: 32px;
+    left: 402px;
+    top: 18px;
 }
 
 .market-menu-links a {
@@ -1555,14 +1562,18 @@ body.market-page-body {
     color: #9ee19e;
     font-family: 'Outfit', sans-serif;
     font-weight: 600;
-    font-size: 19px;
-    line-height: 24px;
+    font-size: 24px;
+    line-height: 30px;
 }
 
 .market-main {
-    background: white;
-        color: #0b1a2f; border-radius: 20px;padding: 40px 30px 60px;  margin-top: 20px;
-        box-shadow: 0 20px 60px rgba(0,0,0,0.1);}
+    background: transparent;
+    color: #fff;
+    border-radius: 0;
+    padding: 40px 30px 60px;
+    margin-top: 20px;
+    box-shadow: none;
+}
 
 .market-hero-card {
     background: #9ee19e;
@@ -1666,9 +1677,9 @@ body.market-page-body {
 }
 
 .market-featured-card {
-    background: rgba(235, 241, 237, 0.3);
-min-height: 220px;
-padding: 10px 8px 12px;
+    background: linear-gradient(180deg, rgba(255, 255, 255, 0.09) 0%, rgba(0, 0, 0, 0.22) 100%);
+    min-height: 220px;
+    padding: 10px 8px 12px;
     text-align: center;
 }
 
@@ -1687,14 +1698,14 @@ height: 140px;
     font-family: 'Freeman', sans-serif;
     font-size: 19px;
     line-height: 1.1;
-    color: #1b1b18;
+    color: #fff;
 }
 
 .market-featured-card p {
     margin: 0;
     font-family: 'Fredoka', sans-serif;
-       font-size: 11px;
-       color: #1b1b18;
+    font-size: 11px;
+    color: rgba(255, 255, 255, 0.82);
 }
 
 .market-product-grid {
@@ -1704,20 +1715,14 @@ height: 140px;
 }
 
 .market-product-card {
-    margin: 0 12px 12px;
-    background: #f8f9fa;
-    border-radius: 26px;
+    margin: 0;
+    background: rgba(217, 217, 217, 0.14);
+    border-radius: 11px;
     overflow: hidden;
     position: relative;
     padding: 10px;
-
-    border: 7px solid #e5e7eb20; /* light gray border */
-    box-shadow: 0 2px 8px rgba(0,0,0,0.05);
-}
-.market-product-card > div {
-    background: rgba(235, 241, 237, 0.7);
-    border-radius: 20px;
-    padding: 8px;
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    box-shadow: none;
 }
 
 .market-product-thumb {
@@ -1725,12 +1730,14 @@ height: 140px;
     aspect-ratio: 1 / 1;
     height: auto;
     background: rgba(0, 0, 0, 0.18);
+    border-radius: 8px;
+    overflow: hidden;
 }
 
 .market-product-thumb img {
     width: 100%;
     height: 100%;
-    object-fit: contain;
+    object-fit: cover;
     object-position: center;
 }
 
@@ -1754,16 +1761,34 @@ height: 140px;
     fill: #fff;
 }
 
-.market-product-body {
-    /* Moved to parent .market-product-card */
+.market-product-details {
+    margin-top: 8px;
+    padding: 10px 8px 8px;
+    border-radius: 8px;
+    background: rgba(217, 217, 217, 0.14);
+    min-height: 130.64px;
+    position: relative;
 }
 
 .market-product-title {
-    margin: 0 0 4px;
+    margin: 0;
     font-family: 'Open Sans', sans-serif;
-    font-size: 18px;
+    font-size: 22px;
     font-weight: 700;
-    color: #1b1b18;
+    color: #fff;
+    line-height: 30px;
+}
+
+.market-product-time {
+    margin: 0;
+    position: absolute;
+    top: 12px;
+    right: 8px;
+    color: rgba(255, 255, 255, 0.8);
+    font-family: 'Open Sans', sans-serif;
+    font-weight: 700;
+    font-size: 11px;
+    line-height: 15px;
 }
 
 .market-product-price {
@@ -1772,19 +1797,34 @@ height: 140px;
     font-family: 'Open Sans', sans-serif;
     font-size: 18px;
     font-weight: 600;
+    line-height: 25px;
 }
 
 .market-product-meta,
 .market-product-loc {
     margin: 2px 0 0;
-    color: rgba(27, 27, 24, 0.82);
-    font-size: 9px;
+    color: rgba(255, 255, 255, 0.8);
+    font-size: 11px;
     font-family: 'Open Sans', sans-serif;
     font-weight: 700;
+    line-height: 15px;
+}
+
+.market-product-loc {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+}
+
+.market-product-loc svg {
+    width: 14px;
+    height: 14px;
+    fill: #fff;
+    flex: 0 0 auto;
 }
 
 .market-product-foot {
-    margin-top: 8px;
+    margin-top: 6px;
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -1814,7 +1854,7 @@ height: 140px;
 .market-badge {
     border-radius: 4px;
     padding: 3px 10px;
-    font-size: 12px;
+    font-size: 10px;
     color: #000912;
     font-weight: 700;
 }
@@ -1832,9 +1872,9 @@ height: 140px;
 }
 
 .market-verified {
-    font-size: 11px;
+    font-size: 10px;
     font-weight: 600;
-    color: #000912;
+    color: rgba(255, 255, 255, 0.9);
 }
 
 .market-article-grid {
@@ -1988,6 +2028,13 @@ height: 140px;
     .market-menubar {
         flex-direction: column;
         align-items: start;
+        min-height: 0;
+    }
+
+    .market-menu-links {
+        position: static;
+        width: auto;
+        height: auto;
     }
 
     .market-categories-btn {

@@ -14,7 +14,7 @@
     @vite(['resources/css/app.css', 'resources/js/app.js', 'resources/js/categories-toggle.js'])
 </head>
 
-<body class="bg-[#FDFDFC] dark:bg-[#0a0a0a] text-[#1b1b18] min-h-screen antialiased">
+<body class="market-page-body">
 
     @php
         $productImages = [
@@ -40,14 +40,9 @@
             $recommendedCards = $products->take(8);
         }
     @endphp
-
-
-
-    <nav class="site-nav">
+    <div class="market-page-wrap">
+    <nav class="market-header">
         <div class="nav-container">
-
-        <!-- ☰ MENU -->
-
         <div class="market-topbar">
             <!-- BRAND -->
             <a href="{{ route('market.home') }}" class="market-brand" aria-label="FreshBytes Home">
@@ -131,15 +126,12 @@
             </details>
             <nav class="market-menu-links" aria-label="Primary">
                 <a href="{{ route('market.home') }}">Home</a>
-                <a href="#featured-categories">Categories</a>
-                <a href="#fresh-near-you">Shop</a>
-                <a href="#market-footer">Nutritional</a>
-<a href="{{ route('seller.register') }}">Start Selling</a>
+                <a href="#all-categories">Categories</a>
+                <a href="#all-products">Shop</a>
+                <a href="#nutritional-products">Nutritional</a>
+                <a href="{{ route('seller.register') }}">Start Selling</a>
             </nav>
 
-        </div>
-        </div>
-        </header>
         </div>
         </div>
     </nav>
@@ -155,7 +147,7 @@
         </section>
 
 
-        <section class="py-8 bg-white dark:bg-gray-900">
+        <section class="market-section" id="all-categories">
             <div class="max-w-screen-xl px-4 mx-auto 2xl:px-0">
                 <div class="market-section-head">
                     <h2>Featured Categories</h2>
@@ -193,7 +185,7 @@
             </div>
         </section>
 
-        <section class="py-8 bg-white dark:bg-gray-900">
+        <section class="market-section" id="all-products">
             <div class="max-w-screen-xl px-4 mx-auto 2xl:px-0">
                 <div class="market-section-head">
                     <h2>Fresh Bites Near You</h2>
@@ -218,24 +210,31 @@
                                 </svg>
                             </button>
 
-                            <p class="market-product-title">{{ $product->product_name }}</p>
-                            <p class="market-product-price">₱{{ number_format($product->product_price, 2) }} /
-                                {{ $product->product_unit ?? 'kg' }}
-                            </p>
-                            <p class="market-product-meta">{{ $product->sell_count ?? 0 }} sold</p>
-                            <p class="market-product-meta">{{ $distance }} km away</p>
-                            <p class="market-product-meta">{{ $hoursAgo }} hours ago</p>
-                            <p class="market-product-loc">{{ $product->product_location }}</p>
-                            <div class="market-product-foot">
-                                <span
-                                    class="market-badge {{ $badge === 'Withered' ? 'warn' : ($badge === 'Slightly Withered' ? 'mid' : 'ok') }}">{{ $badge }}</span>
-                                <span class="market-verified">Verified</span>
+                            <div class="market-product-details">
+                                <p class="market-product-title">{{ $product->product_name }}</p>
+                                <p class="market-product-time">{{ $hoursAgo }} hours ago</p>
+                                <p class="market-product-price">₱{{ number_format($product->product_price, 2) }} /
+                                    {{ $product->product_unit ?? 'kg' }}
+                                </p>
+                                <p class="market-product-meta">{{ $product->sell_count ?? 0 }} sold</p>
+                                <p class="market-product-meta">{{ $distance }} km away</p>
+                                <p class="market-product-loc">
+                                    <svg viewBox="0 0 24 24" aria-hidden="true">
+                                        <path d="M12 2a7 7 0 00-7 7c0 5.25 7 13 7 13s7-7.75 7-13a7 7 0 00-7-7zm0 10a3 3 0 110-6 3 3 0 010 6z" />
+                                    </svg>
+                                    <span>{{ $product->product_location }}</span>
+                                </p>
+                                <div class="market-product-foot">
+                                    <span
+                                        class="market-badge {{ $badge === 'Withered' ? 'warn' : ($badge === 'Slightly Withered' ? 'mid' : 'ok') }}">{{ $badge }}</span>
+                                    <span class="market-verified">Verified</span>
+                                </div>
+                                <form action="{{ route('cart.add', $product->product_id) }}" method="post"
+                                    class="market-cart-form">
+                                    @csrf
+                                    <button type="submit" class="market-cart-btn">Add to cart</button>
+                                </form>
                             </div>
-                            <form action="{{ route('cart.add', $product->product_id) }}" method="post"
-                                class="market-cart-form">
-                                @csrf
-                                <button type="submit" class="market-cart-btn">Add to cart</button>
-                            </form>
                         </article>
                     @endforeach
                 </div>
@@ -266,23 +265,30 @@
                             </svg>
                         </button>
 
-                        <p class="market-product-title">{{ $product->product_name }}</p>
-                        <p class="market-product-price">₱{{ number_format($product->product_price, 2) }} /
-                            {{ $product->product_unit ?? 'kg' }}
-                        </p>
-                        <p class="market-product-meta">{{ $product->sell_count ?? 0 }} sold</p>
-                        <p class="market-product-meta">{{ $distance }} km away</p>
-                        <p class="market-product-meta">{{ $hoursAgo }} hours ago</p>
-                        <p class="market-product-loc">{{ $product->product_location }}</p>
-                        <div class="market-product-foot">
-                            <span
-                                class="market-badge {{ $badge === 'Withered' ? 'warn' : ($badge === 'Slightly Withered' ? 'mid' : 'ok') }}">{{ $badge }}</span>
-                            <span class="market-verified">Verified</span>
+                        <div class="market-product-details">
+                            <p class="market-product-title">{{ $product->product_name }}</p>
+                            <p class="market-product-time">{{ $hoursAgo }} hours ago</p>
+                            <p class="market-product-price">₱{{ number_format($product->product_price, 2) }} /
+                                {{ $product->product_unit ?? 'kg' }}
+                            </p>
+                            <p class="market-product-meta">{{ $product->sell_count ?? 0 }} sold</p>
+                            <p class="market-product-meta">{{ $distance }} km away</p>
+                            <p class="market-product-loc">
+                                <svg viewBox="0 0 24 24" aria-hidden="true">
+                                    <path d="M12 2a7 7 0 00-7 7c0 5.25 7 13 7 13s7-7.75 7-13a7 7 0 00-7-7zm0 10a3 3 0 110-6 3 3 0 010 6z" />
+                                </svg>
+                                <span>{{ $product->product_location }}</span>
+                            </p>
+                            <div class="market-product-foot">
+                                <span
+                                    class="market-badge {{ $badge === 'Withered' ? 'warn' : ($badge === 'Slightly Withered' ? 'mid' : 'ok') }}">{{ $badge }}</span>
+                                <span class="market-verified">Verified</span>
+                            </div>
+                            <form action="{{ route('cart.add', $product->product_id) }}" method="post" class="market-cart-form">
+                                @csrf
+                                <button type="submit" class="market-cart-btn">Add to cart</button>
+                            </form>
                         </div>
-                        <form action="{{ route('cart.add', $product->product_id) }}" method="post" class="market-cart-form">
-                            @csrf
-                            <button type="submit" class="market-cart-btn">Add to cart</button>
-                        </form>
                     </article>
                 @endforeach
             </div>
