@@ -134,8 +134,9 @@
                 <a href="#featured-categories">Categories</a>
                 <a href="#fresh-near-you">Shop</a>
                 <a href="#market-footer">Nutritional</a>
-                <a href="#market-footer">Contact</a>
+<a href="{{ route('seller.register') }}">Start Selling</a>
             </nav>
+
         </div>
         </div>
         </header>
