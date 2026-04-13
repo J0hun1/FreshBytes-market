@@ -7,6 +7,7 @@ use App\Http\Controllers\CartController;
 use App\Http\Controllers\SellerController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\AccountController;
+use App\Http\Controllers\MarketPageController;
 use App\Models\Product;
 
 Route::get('/', function () {
@@ -86,6 +87,11 @@ Route::get('/market/products/popular', function () {
         'products' => $products,
     ]);
 })->name('market.products.popular');
+
+Route::get('/market/notifications', [MarketPageController::class, 'notifications'])->name('market.notifications');
+Route::get('/market/nutrition', [MarketPageController::class, 'nutritionProfile'])->name('market.nutrition.profile');
+Route::get('/market/nutrition/value/{name}', [MarketPageController::class, 'nutritionValue'])->name('market.nutrition.value');
+Route::get('/market/nutrition/recipes/{slug}', [MarketPageController::class, 'nutritionRecipe'])->name('market.nutrition.recipe');
 
 $products = [
     1 => [

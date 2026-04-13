@@ -16,15 +16,25 @@ class CartController extends Controller
     {
         $product = Product::findOrFail($id);
 
-        $imageByName = [
-            'Eggplant' => 'https://images.unsplash.com/photo-1518735869015-566a18eae4be?auto=format&fit=crop&w=640&q=80',
-            'Lettuce' => 'https://images.unsplash.com/photo-1622205313162-be1d5712a43f?auto=format&fit=crop&w=640&q=80',
-            'Squash' => 'https://images.unsplash.com/photo-1604977042946-1eecc30f269e?auto=format&fit=crop&w=640&q=80',
-            'Watermelon' => 'https://images.unsplash.com/photo-1563114773-84221bd62daa?auto=format&fit=crop&w=640&q=80',
-            'Apple' => 'https://images.unsplash.com/photo-1568702846914-96b305d2aaeb?auto=format&fit=crop&w=640&q=80',
-            'Carrot' => 'https://images.unsplash.com/photo-1598170845058-32b9d6a5da37?auto=format&fit=crop&w=640&q=80',
-            'Pechay' => 'https://images.unsplash.com/photo-1618040996337-56904b7850b9?auto=format&fit=crop&w=640&q=80',
-        ];
+        // Use centralized catalog config for product images and details
+        $catalog = config('market_catalog');
+        $productProfiles = $catalog['products'] ?? [];
+        $fallbackProfile = $catalog['fallback'] ?? [];
+
+        // Resolve product profile
+        $normalized = strtolower(trim((string) $product->product_name));
+        $matchedProfile = $productProfiles[$normalized] ?? null;
+
+        if (!$matchedProfile) {
+            foreach ($productProfiles as $name => $profile) {
+                if (str_contains($normalized, $name) || str_contains($name, $normalized)) {
+                    $matchedProfile = $profile;
+                    break;
+                }
+            }
+        }
+
+        $profile = $matchedProfile ?? $fallbackProfile;
         
         $cart = Session::get('cart', []);
         
@@ -32,7 +42,7 @@ class CartController extends Controller
             'name' => $product->product_name,
             'price' => $product->product_price,
             'quantity' => ($cart[$id]['quantity'] ?? 0) + 1,
-            'image' => $imageByName[$product->product_name] ?? '/images/market_banner.png'
+            'image' => $profile['image'] ?? 'https://images.unsplash.com/photo-1542838132-92c53300491e?auto=format&fit=crop&w=1200&q=80'
         ];
         
         Session::put('cart', $cart);

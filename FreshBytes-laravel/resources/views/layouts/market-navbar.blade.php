@@ -18,17 +18,45 @@
             </form>
 
             <div class="market-actions">
-                <a href="{{ route('market.home') }}#nutritional-products" aria-label="Nutrition">
+                <a href="{{ route('market.nutrition.profile') }}" aria-label="Nutrition">
                     <img src="/images/market_topButtons_nutriotional.png" alt="Nutrition">
                     <span>Nutrition</span>
                 </a>
-                <a href="{{ route('market.home') }}#recommended-bites" aria-label="Notifications">
-                    <img src="/images/market_topButtons_notifs.png" alt="Notifications">
-                    <span>Notifications</span>
-                </a>
+                <div class="market-notif-wrap">
+                    <button type="button" class="market-notif-trigger" aria-label="Notifications" aria-expanded="false" aria-controls="market-notif-dropdown">
+                        <img src="/images/market_topButtons_notifs.png" alt="Notifications">
+                        <span>Notifications</span>
+                    </button>
+                    <div class="market-notif-dropdown" id="market-notif-dropdown" hidden>
+                        <span class="market-notif-pointer" aria-hidden="true"></span>
+                        <div class="market-notif-head">
+                            <h3>Notifications</h3>
+                            <a href="{{ route('market.notifications') }}" class="market-notif-head-link">View all</a>
+                        </div>
+                        <div class="market-notif-list">
+                            <article>
+                                <h4>Freshness Alert</h4>
+                                <p>Your banana is still fresh but nearing ripeness. Store in a cool and dry place.</p>
+                            </article>
+                            <article>
+                                <h4>New Fresh Produce Available!</h4>
+                                <p>Local farmers just stocked fresh tomatoes and lettuce. Order while supplies last.</p>
+                            </article>
+                            <article>
+                                <h4>Boost Your Immunity!</h4>
+                                <p>Fresh citrus fruits are packed with Vitamin C. Check recipes and meal plans now.</p>
+                            </article>
+                            <article>
+                                <h4>Sustainability Tip</h4>
+                                <p>Reduce food waste by storing vegetables properly. Learn more in our guide.</p>
+                            </article>
+                        </div>
+                        <a href="{{ route('market.notifications') }}" class="market-notif-view-all">View all notifications</a>
+                    </div>
+                </div>
                 <a href="{{ route('market.home') }}#fresh-near-you" aria-label="Wishlist">
                     <img src="/images/market_topButtons_wishlist.png" alt="Wishlist">
-                    <span>Wish. list</span>
+                    <span>Wishlist</span>
                 </a>
                 <a href="{{ route('cart.index') }}" aria-label="Cart">
                     <img src="/images/market_topButtons_cart.png" alt="Cart">
@@ -74,9 +102,43 @@
                 <a href="{{ route('market.home') }}">Home</a>
                 <a href="{{ route('market.categories') }}">Categories</a>
                 <a href="{{ route('market.products.nearby') }}">Shop</a>
-                <a href="{{ route('market.home') }}#nutritional-products">Nutritional</a>
+                <a href="{{ route('market.nutrition.profile') }}">Nutritional</a>
                 <a href="{{ route('seller.register') }}">Start Selling</a>
             </nav>
         </div>
     </div>
 </nav>
+
+<script>
+    window.addEventListener('DOMContentLoaded', function () {
+        const trigger = document.querySelector('.market-notif-trigger');
+        const dropdown = document.getElementById('market-notif-dropdown');
+
+        if (!trigger || !dropdown) {
+            return;
+        }
+
+        const closeDropdown = () => {
+            dropdown.hidden = true;
+            trigger.setAttribute('aria-expanded', 'false');
+        };
+
+        trigger.addEventListener('click', function (event) {
+            event.stopPropagation();
+            const shouldOpen = dropdown.hidden;
+            dropdown.hidden = !shouldOpen;
+            trigger.setAttribute('aria-expanded', shouldOpen ? 'true' : 'false');
+        });
+
+        dropdown.addEventListener('click', function (event) {
+            event.stopPropagation();
+        });
+
+        document.addEventListener('click', closeDropdown);
+        document.addEventListener('keydown', function (event) {
+            if (event.key === 'Escape') {
+                closeDropdown();
+            }
+        });
+    });
+</script>

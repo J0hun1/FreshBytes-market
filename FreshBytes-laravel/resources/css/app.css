@@ -1506,6 +1506,12 @@ body.market-page-body::after {
     gap: 4px;
 }
 
+.market-notif-wrap {
+    position: relative;
+    display: inline-flex;
+    justify-content: center;
+}
+
 .market-actions a,
 .market-actions button {
     display: inline-flex;
@@ -1608,9 +1614,9 @@ body.market-page-body::after {
 .market-categories-menu a {
     color: #ecfff2;
     text-decoration: none;
-    font-family: 'Outfit', sans-serif;
+    font-family: 'Freeman', sans-serif;
     font-weight: 500;
-    font-size: 18px;
+    font-size: 20px;
     padding: 8px 10px;
     border-radius: 8px;
 }
@@ -1756,7 +1762,9 @@ body.market-page-body::after {
 }
 
 .market-featured-card {
-    background: rgba(217, 217, 217, 0.1);
+    background: linear-gradient(160deg, rgba(10, 56, 31, 0.88) 0%, rgba(15, 82, 44, 0.68) 100%);
+    border: 1px solid rgba(158, 225, 158, 0.28);
+    border-radius: 16px;
     min-height: 306px;
     padding: 12px 8px 12px;
     text-align: center;
@@ -1769,7 +1777,8 @@ body.market-page-body::after {
 .market-featured-card img {
     width: 100%;
     height: 214px;
-    object-fit: contain;
+    border-radius: 10px;
+    object-fit: cover;
 }
 
 .market-featured-card h3 {
@@ -1782,7 +1791,7 @@ body.market-page-body::after {
 
 .market-featured-card p {
     margin: 0;
-    font-family: 'Fredoka', sans-serif;
+    font-family: 'Outfit', sans-serif;
     font-size: 18px;
     color: #fff;
 }
@@ -1855,9 +1864,9 @@ body.market-page-body::after {
 
 .market-product-title {
     margin: 0;
-    font-family: 'Open Sans', sans-serif;
+    font-family: 'Outfit', sans-serif;
     font-size: 22px;
-    font-weight: 700;
+    font-weight: 600;
     color: #fff;
     line-height: 30px;
 }
@@ -1868,8 +1877,8 @@ body.market-page-body::after {
     top: 12px;
     right: 8px;
     color: rgba(255, 255, 255, 0.8);
-    font-family: 'Open Sans', sans-serif;
-    font-weight: 700;
+    font-family: 'Outfit', sans-serif;
+    font-weight: 500;
     font-size: 11px;
     line-height: 15px;
 }
@@ -1877,7 +1886,7 @@ body.market-page-body::after {
 .market-product-price {
     margin: 0;
     color: #9ee19e;
-    font-family: 'Open Sans', sans-serif;
+    font-family: 'Outfit', sans-serif;
     font-size: 18px;
     font-weight: 600;
     line-height: 25px;
@@ -1888,9 +1897,17 @@ body.market-page-body::after {
     margin: 2px 0 0;
     color: rgba(255, 255, 255, 0.8);
     font-size: 11px;
-    font-family: 'Open Sans', sans-serif;
-    font-weight: 700;
+    font-family: 'Outfit', sans-serif;
+    font-weight: 500;
     line-height: 15px;
+}
+
+.market-product-copy {
+    margin: 6px 0 0;
+    color: rgba(236, 255, 242, 0.84);
+    font-family: 'Outfit', sans-serif;
+    font-size: 12px;
+    line-height: 1.35;
 }
 
 .market-product-loc {
@@ -1981,10 +1998,10 @@ body.market-page-body::after {
 
 .market-toast {
     position: fixed;
-    top: 92px;
+    top: 154px;
     left: 50%;
     transform: translateX(-50%);
-    z-index: 120;
+    z-index: 220;
     background: rgba(21, 56, 30, 0.96);
     border: 2px solid rgba(158, 225, 158, 0.75);
     color: #ecfff2;
@@ -2231,7 +2248,7 @@ body.market-page-body footer hr,
     }
 
     .market-toast {
-        top: 82px;
+        top: 132px;
         width: calc(100vw - 24px);
         min-width: 0;
         font-size: 18px;
@@ -2314,4 +2331,916 @@ body.market-page-body footer hr,
     max-width: 1200px;   /* controls overall width */
     margin: 0 auto;      /* centers it */
     padding: 0 20px;     /* ← LEFT & RIGHT SPACE (what you want) */
+}
+
+.market-subpage-main {
+    margin-top: 14px;
+    padding-top: 24px;
+}
+
+.market-subpage-shell {
+    width: min(980px, 100%);
+    margin: 0 auto;
+}
+
+.market-list-shell {
+    width: min(1200px, 100%);
+    background: linear-gradient(180deg, rgba(9, 50, 22, 0.75) 0%, rgba(7, 39, 20, 0.62) 100%);
+    border: 1px solid rgba(158, 225, 158, 0.22);
+    border-radius: 18px;
+    padding: 20px;
+}
+
+.market-page-head-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 12px;
+    flex-wrap: wrap;
+}
+
+.market-back-link {
+    text-decoration: none;
+    background: #9ee19e;
+    color: #043522;
+    border-radius: 10px;
+    padding: 10px 16px;
+    font-family: 'Outfit', sans-serif;
+    font-weight: 700;
+}
+
+.market-back-link:hover {
+    background: #b6ecae;
+}
+
+.market-page-summary {
+    margin: 10px 0 0;
+    color: rgba(236, 255, 242, 0.86);
+    font-family: 'Outfit', sans-serif;
+    font-size: 18px;
+    line-height: 1.4;
+}
+
+.market-category-name {
+    font-family: 'Freeman', sans-serif;
+}
+
+.market-detail-text {
+    font-family: 'Outfit', sans-serif;
+}
+
+.market-subpage-title {
+    margin: 0 0 14px;
+    font-family: 'Outfit', sans-serif;
+    font-size: clamp(30px, 3.4vw, 42px);
+    font-weight: 700;
+    color: #ecfff2;
+}
+
+.market-sub-search {
+    width: min(760px, 100%);
+    height: 44px;
+    border-radius: 42px;
+    border: 1px solid rgba(236, 255, 242, 0.6);
+    background: rgba(5, 31, 17, 0.75);
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 0 16px;
+}
+
+.market-sub-search svg {
+    width: 20px;
+    height: 20px;
+    fill: rgba(236, 255, 242, 0.75);
+}
+
+.market-sub-search input {
+    width: 100%;
+    border: 0;
+    outline: 0;
+    background: transparent;
+    color: #ecfff2;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 14px;
+    font-weight: 600;
+}
+
+.market-sub-search input::placeholder {
+    color: rgba(236, 255, 242, 0.65);
+}
+
+.market-notification-list-page {
+    margin-top: 20px;
+    display: grid;
+    gap: 10px;
+}
+
+.market-notification-row {
+    background: rgba(10, 56, 31, 0.88);
+    border: 1px solid rgba(158, 225, 158, 0.35);
+    border-radius: 10px;
+    padding: 14px 18px;
+    display: grid;
+    grid-template-columns: 64px 1fr auto;
+    align-items: center;
+    gap: 14px;
+}
+
+.market-notification-row h3 {
+    margin: 0;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 21px;
+    font-weight: 700;
+    color: #f9fff9;
+}
+
+.market-notification-row p {
+    margin: 4px 0 0;
+    color: rgba(236, 255, 242, 0.8);
+    font-family: 'Outfit', sans-serif;
+    font-size: 14px;
+}
+
+.market-notification-row span {
+    align-self: start;
+    color: rgba(236, 255, 242, 0.65);
+    font-family: 'Outfit', sans-serif;
+    font-size: 12px;
+}
+
+.market-notification-icon {
+    width: 54px;
+    height: 54px;
+    border-radius: 14px;
+    background: #2d6f0f;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.market-notification-icon::before {
+    font-size: 18px;
+    font-family: 'Outfit', sans-serif;
+    font-weight: 700;
+    color: #ecfff2;
+    line-height: 1;
+}
+
+.market-notification-icon.leaf::before { content: 'LF'; }
+.market-notification-icon.store::before { content: 'ST'; }
+.market-notification-icon.lemon::before { content: 'VC'; }
+.market-notification-icon.globe::before { content: 'SU'; }
+.market-notification-icon.plant::before { content: 'OG'; }
+.market-notification-icon.carrot::before { content: 'DT'; }
+
+.market-notification-row.muted {
+    opacity: 0.84;
+}
+
+.market-notif-trigger {
+    position: relative;
+}
+
+.market-notif-dropdown {
+    position: absolute;
+    top: calc(100% + 16px);
+    left: 50%;
+    transform: translateX(-50%);
+    width: min(320px, calc(100vw - 24px));
+    z-index: 240;
+    display: flex;
+    flex-direction: column;
+    max-height: min(74vh, 540px);
+    border-radius: 8px;
+    background: #f9fff9;
+    color: #121212;
+    border: 1px solid rgba(0, 0, 0, 0.2);
+    box-shadow: 0 14px 30px rgba(0, 0, 0, 0.35);
+    pointer-events: auto;
+}
+
+.market-notif-pointer {
+    position: absolute;
+    left: 50%;
+    top: -10px;
+    width: 20px;
+    height: 20px;
+    background: #f9fff9;
+    border-top: 1px solid rgba(0, 0, 0, 0.2);
+    border-left: 1px solid rgba(0, 0, 0, 0.2);
+    transform: translateX(-50%) rotate(45deg);
+}
+
+.market-notif-head {
+    padding: 18px 20px 14px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.2);
+}
+
+.market-notif-head h3 {
+    margin: 0;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 33px;
+    font-weight: 700;
+    color: #121212;
+}
+
+.market-notif-head .market-notif-head-link {
+    text-decoration: none;
+    color: #0a6a38;
+    border: 1px solid rgba(10, 106, 56, 0.35);
+    background: #eef8f1;
+    border-radius: 8px;
+    padding: 6px 10px;
+    font-family: 'Outfit', sans-serif;
+    font-size: 13px;
+    font-weight: 700;
+    white-space: nowrap;
+}
+
+.market-notif-head .market-notif-head-link:hover {
+    background: rgba(10, 106, 56, 0.08);
+}
+
+.market-notif-list {
+    flex: 1 1 auto;
+    min-height: 0;
+    max-height: none;
+    overflow-y: auto;
+}
+
+.market-notif-list article {
+    padding: 14px 20px;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.17);
+    pointer-events: auto;
+}
+
+.market-notif-list h4 {
+    margin: 0;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 18px;
+    font-weight: 600;
+    color: #121212;
+}
+
+.market-notif-list p {
+    margin: 4px 0 0;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 14px;
+    color: rgba(0, 0, 0, 0.68);
+}
+
+.market-notif-view-all {
+    display: block;
+    text-align: center;
+    text-decoration: none;
+    color: #00743d;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 16px;
+    font-weight: 700;
+    padding: 16px;
+    border-top: 1px solid rgba(0, 0, 0, 0.17);
+    pointer-events: auto;
+    cursor: pointer;
+}
+
+.market-notif-view-all:hover {
+    background: rgba(0, 116, 61, 0.08);
+}
+
+.market-nutrition-shell {
+    margin-top: 12px;
+    background: rgba(6, 39, 22, 0.68);
+    border: 1px solid rgba(158, 225, 158, 0.26);
+    border-radius: 22px;
+    padding: 18px;
+}
+
+.market-nutrition-meta {
+    margin: 8px 0 4px;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 12px;
+    font-weight: 600;
+    display: flex;
+    gap: 10px;
+}
+
+.market-nutrition-meta span:first-child { color: #7fe38e; }
+.market-nutrition-meta span:last-child { color: #ff8a8a; }
+
+.market-nutrition-top-tiles {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 12px;
+    margin: 8px 0 18px;
+}
+
+.market-nutrition-top-tiles article {
+    background: rgba(158, 225, 158, 0.2);
+    border-radius: 18px;
+    min-height: 86px;
+    display: grid;
+    place-items: center;
+}
+
+.market-nutrition-top-tiles span {
+    font-size: 32px;
+}
+
+.market-nutrition-top-tiles p {
+    margin: 0;
+    font-family: 'Outfit', sans-serif;
+    font-size: 14px;
+    color: #ecfff2;
+}
+
+.market-tile-icon {
+    width: 58px;
+    height: 58px;
+    border-radius: 14px;
+    display: inline-block;
+    background: linear-gradient(145deg, #94d98f 0%, #62b55d 100%);
+}
+
+.market-tile-icon.leafy {
+    border-radius: 30px 16px 26px 12px;
+}
+
+.market-tile-icon.watermelon {
+    border-radius: 24px 24px 16px 16px;
+    background: linear-gradient(145deg, #ff7070 0%, #59bf60 100%);
+}
+
+.market-tile-icon.tomato {
+    border-radius: 50%;
+    background: radial-gradient(circle at 30% 30%, #ff8888 0%, #de3f3f 65%);
+}
+
+.market-tile-icon.carrot {
+    border-radius: 30px 8px 26px 8px;
+    background: linear-gradient(160deg, #f8a54b 0%, #de6e1f 100%);
+}
+
+.market-nutrition-shell h2 {
+    margin: 6px 0 10px;
+    font-family: 'Outfit', sans-serif;
+    font-size: 24px;
+    color: #ecfff2;
+}
+
+.market-nutrition-grid-wrap {
+    display: grid;
+    grid-template-columns: 1fr 28px;
+    gap: 16px;
+}
+
+.market-nutrition-groups {
+    display: grid;
+    gap: 12px;
+}
+
+.market-nutrition-groups section > h3 {
+    margin: 0 0 4px;
+    border: 1px solid rgba(236, 255, 242, 0.55);
+    border-radius: 12px;
+    padding: 2px 10px;
+    color: rgba(236, 255, 242, 0.7);
+    font-family: 'Montserrat', sans-serif;
+    font-size: 15px;
+}
+
+.market-nutrition-groups section > div {
+    border: 1px solid rgba(236, 255, 242, 0.55);
+    border-radius: 12px;
+    overflow: hidden;
+}
+
+.market-nutrition-groups a {
+    display: block;
+    text-decoration: none;
+    padding: 9px 14px;
+    border-top: 1px solid rgba(236, 255, 242, 0.25);
+    font-family: 'Outfit', sans-serif;
+    font-size: 15px;
+    font-weight: 600;
+    color: #ecfff2;
+}
+
+.market-nutrition-groups a:first-child {
+    border-top: 0;
+}
+
+.market-nutrition-groups a:hover {
+    background: rgba(158, 225, 158, 0.16);
+}
+
+.market-empty-note {
+    margin: 8px 0;
+    color: #ecfff2;
+    font-family: 'Outfit', sans-serif;
+}
+
+.market-alphabet-side {
+    display: grid;
+    gap: 4px;
+    align-content: start;
+}
+
+.market-alphabet-side span {
+    color: rgba(236, 255, 242, 0.84);
+    font-family: 'Montserrat', sans-serif;
+    font-size: 12px;
+    text-align: center;
+    font-weight: 700;
+}
+
+.market-value-card,
+.market-product-detail-card {
+    background: rgba(8, 40, 23, 0.68);
+    border: 1px solid rgba(158, 225, 158, 0.26);
+    border-radius: 26px;
+    padding: 18px;
+    position: relative;
+}
+
+.market-back-btn {
+    position: absolute;
+    top: 16px;
+    left: 16px;
+    width: 34px;
+    height: 34px;
+    border-radius: 50%;
+    background: rgba(0, 9, 18, 0.7);
+    color: #fff;
+    display: grid;
+    place-items: center;
+    text-decoration: none;
+    font-size: 20px;
+}
+
+.market-value-header {
+    display: grid;
+    grid-template-columns: minmax(280px, 520px) 1fr;
+    gap: 20px;
+    padding-top: 26px;
+}
+
+.market-value-header img {
+    width: 100%;
+    height: 320px;
+    object-fit: cover;
+    border-radius: 20px;
+}
+
+.market-value-content h1 {
+    margin: 0;
+    font-family: 'Outfit', sans-serif;
+    font-size: clamp(34px, 4vw, 52px);
+    color: #f9fff9;
+}
+
+.market-value-type,
+.market-value-description,
+.market-value-subtitle {
+    margin: 0;
+    font-family: 'Montserrat', sans-serif;
+    color: #9ee19e;
+}
+
+.market-value-type {
+    font-size: 24px;
+    font-weight: 600;
+}
+
+.market-value-chips {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin: 10px 0;
+}
+
+.market-value-chips span {
+    background: #00743d;
+    border-radius: 999px;
+    padding: 7px 14px;
+    color: #fff;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 14px;
+    font-weight: 600;
+}
+
+.market-value-description {
+    font-size: 15px;
+    max-width: 700px;
+}
+
+.market-value-content h2 {
+    margin: 12px 0 0;
+    font-family: 'Outfit', sans-serif;
+    font-size: 34px;
+    color: #f9fff9;
+}
+
+.market-value-subtitle {
+    margin-top: 2px;
+    font-size: 16px;
+}
+
+.market-value-stats {
+    margin-top: 12px;
+    display: grid;
+    grid-template-columns: repeat(5, minmax(0, 1fr));
+    gap: 10px;
+}
+
+.market-value-stats article {
+    border: 1px solid #33a162;
+    border-radius: 50px;
+    background: #f9fff9;
+    min-height: 120px;
+    display: grid;
+    place-items: center;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+}
+
+.market-value-stats strong {
+    color: #00743d;
+    font-family: 'Outfit', sans-serif;
+    font-size: 30px;
+}
+
+.market-value-stats span {
+    margin-top: -10px;
+    color: #00743d;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 14px;
+}
+
+.market-value-table {
+    margin-top: 18px;
+    width: min(760px, 100%);
+}
+
+.market-value-table > p {
+    margin: 0;
+    font-family: 'Montserrat', sans-serif;
+    color: #ecfff2;
+    text-align: right;
+    font-size: 12px;
+}
+
+.market-value-table > div {
+    border-top: 1px solid rgba(236, 255, 242, 0.55);
+    display: flex;
+    justify-content: space-between;
+    gap: 12px;
+    padding: 7px 8px;
+    color: #ecfff2;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 13px;
+}
+
+.market-product-main {
+    display: grid;
+    grid-template-columns: minmax(260px, 470px) 1fr;
+    gap: 24px;
+    align-items: start;
+    padding-top: 24px;
+}
+
+.market-product-photo-wrap img {
+    width: 100%;
+    border-radius: 16px;
+    aspect-ratio: 1/1;
+    object-fit: cover;
+}
+
+.market-product-main-info {
+    display: grid;
+    gap: 8px;
+    position: relative;
+    padding-right: 90px;
+}
+
+.market-product-main-info h1 {
+    margin: 0;
+    color: #f9fff9;
+    font-family: 'Freeman', sans-serif;
+    font-size: clamp(34px, 4vw, 54px);
+    font-weight: 700;
+}
+
+.market-product-seller,
+.market-product-distance,
+.market-product-rating-row span {
+    margin: 0;
+    color: rgba(236, 255, 242, 0.82);
+    font-family: 'Outfit', sans-serif;
+    font-size: 22px;
+}
+
+.market-product-price-big {
+    margin: 0;
+    color: #26b569;
+    font-family: 'Outfit', sans-serif;
+    font-size: clamp(34px, 4vw, 52px);
+    font-weight: 700;
+}
+
+.market-product-rating-row {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+.market-stars {
+    color: #ecfff2;
+    letter-spacing: 2px;
+}
+
+.market-product-rating-row strong {
+    color: #f9fff9;
+    font-family: 'Outfit', sans-serif;
+    font-size: 26px;
+}
+
+.market-product-side-meta {
+    position: absolute;
+    right: 0;
+    top: 120px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.market-product-side-meta span {
+    color: #f9fff9;
+    font-family: 'Outfit', sans-serif;
+    font-size: 24px;
+    font-weight: 600;
+}
+
+.market-product-side-meta button {
+    border: 0;
+    width: 32px;
+    height: 32px;
+    border-radius: 8px;
+    background: rgba(236, 255, 242, 0.18);
+    color: #fff;
+    font-size: 18px;
+    cursor: pointer;
+}
+
+.market-product-desc {
+    margin-top: 20px;
+}
+
+.market-product-desc h2,
+.market-product-reviews-head h2 {
+    margin: 0;
+    font-family: 'Freeman', sans-serif;
+    color: #f9fff9;
+    font-size: 36px;
+}
+
+.market-product-desc p {
+    margin: 6px 0 0;
+    color: rgba(236, 255, 242, 0.88);
+    font-family: 'Outfit', sans-serif;
+    font-size: 24px;
+}
+
+.market-product-copy,
+.market-value-description,
+.market-value-subtitle,
+.market-value-table > div,
+.market-reviews-strip p {
+    font-family: 'Outfit', sans-serif;
+}
+
+.market-value-content h1,
+.market-value-content h2,
+.market-notif-head h3,
+.market-subpage-title {
+    font-family: 'Freeman', sans-serif;
+    letter-spacing: 0.3px;
+}
+
+.market-product-reviews {
+    margin-top: 26px;
+}
+
+.market-detail-cart-row {
+    margin-top: 10px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    flex-wrap: wrap;
+}
+
+.market-detail-cart-form {
+    margin: 0;
+}
+
+.market-detail-cart-btn {
+    border: 0;
+    border-radius: 10px;
+    padding: 10px 16px;
+    background: #9ee19e;
+    color: #043522;
+    font-family: 'Outfit', sans-serif;
+    font-size: 16px;
+    font-weight: 700;
+    cursor: pointer;
+}
+
+.market-detail-cart-btn:hover {
+    background: #b6ecae;
+}
+
+.market-detail-nutrition-link {
+    text-decoration: none;
+    border-radius: 10px;
+    padding: 10px 16px;
+    border: 1px solid rgba(158, 225, 158, 0.45);
+    color: #ecfff2;
+    font-family: 'Outfit', sans-serif;
+    font-weight: 600;
+}
+
+.market-product-nutrition-copy {
+    margin-top: 8px;
+    color: rgba(158, 225, 158, 0.95);
+    font-size: 18px;
+    line-height: 1.35;
+}
+
+.market-recipe-shell {
+    width: min(980px, 100%);
+}
+
+.market-recipe-image {
+    margin-top: 14px;
+    width: 100%;
+    height: auto;
+    max-height: 400px;
+    object-fit: cover;
+    border-radius: 12px;
+    border: 1px solid rgba(158, 225, 158, 0.35);
+    display: block;
+    background: rgba(0, 0, 0, 0.1);
+}
+
+.market-recipe-content {
+    margin-top: 16px;
+}
+
+.market-recipe-content h2 {
+    margin: 0 0 8px;
+    font-family: 'Freeman', sans-serif;
+    color: #ecfff2;
+    font-size: 34px;
+}
+
+.market-recipe-content p {
+    margin: 0;
+    font-family: 'Outfit', sans-serif;
+    color: rgba(236, 255, 242, 0.92);
+    font-size: 18px;
+    line-height: 1.6;
+}
+
+.market-product-reviews-head {
+    display: flex;
+    align-items: baseline;
+    gap: 10px;
+}
+
+.market-product-reviews-head span {
+    color: rgba(236, 255, 242, 0.75);
+    font-family: 'Outfit', sans-serif;
+    font-size: 24px;
+}
+
+.market-reviews-strip {
+    margin-top: 12px;
+    display: grid;
+    grid-template-columns: repeat(5, minmax(220px, 1fr));
+    gap: 12px;
+    overflow-x: auto;
+    padding-bottom: 8px;
+}
+
+.market-reviews-strip article {
+    background: rgba(0, 0, 0, 0.28);
+    border: 1px solid rgba(236, 255, 242, 0.2);
+    border-radius: 10px;
+    padding: 14px;
+    min-height: 160px;
+}
+
+.market-reviews-strip h3 {
+    margin: 0;
+    color: #f9fff9;
+    font-family: 'Outfit', sans-serif;
+    font-size: 20px;
+}
+
+.market-reviews-strip .score {
+    margin: 6px 0 8px;
+    color: #9ee19e;
+    letter-spacing: 2px;
+}
+
+.market-reviews-strip p {
+    margin: 0;
+    color: rgba(236, 255, 242, 0.85);
+    font-family: 'Open Sans', sans-serif;
+    font-size: 14px;
+    line-height: 1.35;
+}
+
+@media (max-width: 1100px) {
+    .market-notif-dropdown {
+        right: 0;
+    }
+
+    .market-value-header,
+    .market-product-main {
+        grid-template-columns: 1fr;
+    }
+
+    .market-value-stats {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+
+    .market-product-main-info {
+        padding-right: 0;
+    }
+
+    .market-product-side-meta {
+        position: static;
+        margin-top: 6px;
+    }
+}
+
+@media (max-width: 1100px) {
+    .market-notif-dropdown {
+        left: 50%;
+        transform: translateX(-50%);
+        width: min(300px, calc(100vw - 32px));
+    }
+}
+
+@media (max-width: 760px) {
+    .market-notif-dropdown {
+        left: auto;
+        right: -20px;
+        transform: none;
+        width: calc(100vw - 24px);
+    }
+
+    .market-notif-pointer {
+        left: auto;
+        right: 28px;
+        transform: rotate(45deg);
+    }
+
+    .market-notif-head h3 {
+        font-size: 24px;
+    }
+
+    .market-notification-row {
+        grid-template-columns: 48px 1fr;
+    }
+
+    .market-notification-row span {
+        grid-column: 2;
+    }
+
+    .market-nutrition-top-tiles {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .market-nutrition-grid-wrap {
+        grid-template-columns: 1fr;
+    }
+
+    .market-alphabet-side {
+        grid-template-columns: repeat(13, minmax(0, 1fr));
+        gap: 2px;
+    }
+
+    .market-value-stats {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .market-product-desc p {
+        font-size: 19px;
+    }
 }

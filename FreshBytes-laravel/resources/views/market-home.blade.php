@@ -17,37 +17,42 @@
 <body class="market-page-body">
 
     @php
-        $productImages = [
-            'Eggplant' => 'https://images.unsplash.com/photo-1518735869015-566a18eae4be?auto=format&fit=crop&w=640&q=80',
-            'Lettuce' => 'https://images.unsplash.com/photo-1622205313162-be1d5712a43f?auto=format&fit=crop&w=640&q=80',
-            'Squash' => 'https://images.unsplash.com/photo-1604977042946-1eecc30f269e?auto=format&fit=crop&w=640&q=80',
-            'Watermelon' => 'https://images.unsplash.com/photo-1563114773-84221bd62daa?auto=format&fit=crop&w=640&q=80',
-            'Apple' => 'https://images.unsplash.com/photo-1568702846914-96b305d2aaeb?auto=format&fit=crop&w=640&q=80',
-            'Carrot' => 'https://images.unsplash.com/photo-1598170845058-32b9d6a5da37?auto=format&fit=crop&w=640&q=80',
-            'Pechay' => 'https://images.unsplash.com/photo-1618040996337-56904b7850b9?auto=format&fit=crop&w=640&q=80',
-        ];
+        $catalog = config('market_catalog');
+        $productProfiles = $catalog['products'] ?? [];
+        $categoryPhotos = $catalog['category_photos'] ?? [];
+        $categoryKeywordMap = $catalog['category_keyword_map'] ?? [];
+        $fallbackProfile = $catalog['fallback'] ?? [];
+        $recipes = $catalog['recipe_articles'] ?? [];
 
-        $categoryImages = [
-            'Leafy Greens' => '/images/LeafyGreens_NOBG.png',
-            'Root Vegetables' => '/images/RootVeg_NOBG.png',
-            'Tropical Fruits' => '/images/TropicalFruits_NOBG.png',
-            'Berries' => '/images/BERRIES_NOBG.png',
-        ];
+        $resolveCategoryImage = function ($categoryName) use ($categoryPhotos, $categoryKeywordMap) {
+            $name = strtolower(trim((string) $categoryName));
 
-        $resolveCategoryImage = function ($categoryName) use ($categoryImages) {
-            if (isset($categoryImages[$categoryName])) {
-                return $categoryImages[$categoryName];
+            if (isset($categoryPhotos[$name])) {
+                return $categoryPhotos[$name];
             }
 
-            $name = strtolower(trim($categoryName));
+            foreach ($categoryKeywordMap as $needle => $mappedKey) {
+                if (str_contains($name, $needle) && isset($categoryPhotos[$mappedKey])) {
+                    return $categoryPhotos[$mappedKey];
+                }
+            }
 
-            return match (true) {
-                str_contains($name, 'leaf') || str_contains($name, 'green') => '/images/LeafyGreens_NOBG.png',
-                str_contains($name, 'root') || str_contains($name, 'vegetable') => '/images/RootVeg_NOBG.png',
-                str_contains($name, 'tropical') || str_contains($name, 'fruit') => '/images/TropicalFruits_NOBG.png',
-                str_contains($name, 'berr') => '/images/BERRIES_NOBG.png',
-                default => '/images/market_banner.png',
-            };
+            return '/images/market_banner.png';
+        };
+
+        $resolveProductProfile = function ($productName) use ($productProfiles, $fallbackProfile) {
+            $normalized = strtolower(trim((string) $productName));
+            if (isset($productProfiles[$normalized])) {
+                return $productProfiles[$normalized];
+            }
+
+            foreach ($productProfiles as $name => $profile) {
+                if (str_contains($normalized, $name) || str_contains($name, $normalized)) {
+                    return $profile;
+                }
+            }
+
+            return $fallbackProfile;
         };
 
         $cards = $products->take(8);
@@ -75,17 +80,45 @@
             </form>
 
             <div class="market-actions">
-                <a href="#nutritional-products" aria-label="Nutrition">
+                <a href="{{ route('market.nutrition.profile') }}" aria-label="Nutrition">
                     <img src="/images/market_topButtons_nutriotional.png" alt="Nutrition">
                     <span>Nutrition</span>
                 </a>
-                <a href="#recommended-bites" aria-label="Notifications">
-                    <img src="/images/market_topButtons_notifs.png" alt="Notifications">
-                    <span>Notifications</span>
-                </a>
+                <div class="market-notif-wrap">
+                    <button type="button" class="market-notif-trigger" aria-label="Notifications" aria-expanded="false" aria-controls="market-notif-dropdown">
+                        <img src="/images/market_topButtons_notifs.png" alt="Notifications">
+                        <span>Notifications</span>
+                    </button>
+                    <div class="market-notif-dropdown" id="market-notif-dropdown" hidden>
+                        <span class="market-notif-pointer" aria-hidden="true"></span>
+                        <div class="market-notif-head">
+                            <h3>Notifications</h3>
+                            <a href="{{ route('market.notifications') }}" class="market-notif-head-link">View all</a>
+                        </div>
+                        <div class="market-notif-list">
+                            <article>
+                                <h4>Freshness Alert</h4>
+                                <p>Your banana is still fresh but nearing ripeness. Store in a cool and dry place.</p>
+                            </article>
+                            <article>
+                                <h4>New Fresh Produce Available!</h4>
+                                <p>Local farmers just stocked fresh tomatoes and lettuce. Order while supplies last.</p>
+                            </article>
+                            <article>
+                                <h4>Boost Your Immunity!</h4>
+                                <p>Fresh citrus fruits are packed with Vitamin C. Check recipes and meal plans now.</p>
+                            </article>
+                            <article>
+                                <h4>Sustainability Tip</h4>
+                                <p>Reduce food waste by storing vegetables properly. Learn more in our guide.</p>
+                            </article>
+                        </div>
+                        <a href="{{ route('market.notifications') }}" class="market-notif-view-all">View all notifications</a>
+                    </div>
+                </div>
                 <a href="#fresh-near-you" aria-label="Wishlist">
                     <img src="/images/market_topButtons_wishlist.png" alt="Wishlist">
-                    <span>Wish. list</span>
+                    <span>Wishlist</span>
                 </a>
                 <a href="{{ route('cart.index') }}" aria-label="Cart">
                     <img src="/images/market_topButtons_cart.png" alt="Cart">
@@ -136,7 +169,7 @@
                 <a href="{{ route('market.home') }}">Home</a>
                 <a href="{{ route('market.categories') }}">Categories</a>
                 <a href="#fresh-near-you">Shop</a>
-                <a href="#nutritional-products">Nutritional</a>
+                <a href="{{ route('market.nutrition.profile') }}">Nutritional</a>
                 <a href="{{ route('seller.register') }}">Start Selling</a>
             </nav>
 
@@ -176,8 +209,8 @@
                                     <img src="{{ $resolveCategoryImage($cat->category_name) }}"
                                         alt="{{ $cat->category_name }}">
                                 </a>
-                                <h3>{{ strtoupper($cat->category_name) }}</h3>
-                                <p>{{ $products->where('category_id', $cat->category_id)->count() }} Products</p>
+                                <h3 class="market-category-name">{{ strtoupper($cat->category_name) }}</h3>
+                                <p class="market-detail-text">{{ $products->where('category_id', $cat->category_id)->count() }} Products</p>
                             </article>
                         @endforeach
                     </div>
@@ -198,7 +231,8 @@
                             $distance = number_format(($product->product_id % 4) + 1.4, 1);
                             $hoursAgo = ($product->product_id % 6) + 1;
                             $badge = $product->product_status === 'withered' ? 'Withered' : (($product->product_id % 3 === 0) ? 'Slightly Withered' : 'Fresh');
-                            $img = $productImages[$product->product_name] ?? 'https://images.unsplash.com/photo-1542838132-92c53300491e?auto=format&fit=crop&w=640&q=80';
+                            $profile = $resolveProductProfile($product->product_name);
+                            $img = $profile['image'];
                         @endphp
                         <article class="market-product-card">
                             <a href="{{ route('product.show', $product->product_id) }}" class="market-product-thumb">
@@ -222,8 +256,10 @@
                                     <svg viewBox="0 0 24 24" aria-hidden="true">
                                         <path d="M12 2a7 7 0 00-7 7c0 5.25 7 13 7 13s7-7.75 7-13a7 7 0 00-7-7zm0 10a3 3 0 110-6 3 3 0 010 6z" />
                                     </svg>
-                                    <span>{{ $product->product_location }}</span>
+                                    <span>{{ $profile['location'] ?? $product->product_location }}</span>
                                 </p>
+                                <p class="market-product-copy">{{ $profile['detail'] }}</p>
+                                <p class="market-product-copy">{{ $profile['nutrition'] }}</p>
                                 <div class="market-product-foot">
                                     <span
                                         class="market-badge {{ $badge === 'Withered' ? 'warn' : ($badge === 'Slightly Withered' ? 'mid' : 'ok') }}">{{ $badge }}</span>
@@ -255,7 +291,8 @@
                         $distance = number_format(($product->product_id % 4) + 1.4, 1);
                         $hoursAgo = ($product->product_id % 6) + 1;
                         $badge = $product->product_status === 'withered' ? 'Withered' : (($product->product_id % 3 === 0) ? 'Slightly Withered' : 'Fresh');
-                        $img = $productImages[$product->product_name] ?? 'https://images.unsplash.com/photo-1542838132-92c53300491e?auto=format&fit=crop&w=640&q=80';
+                        $profile = $resolveProductProfile($product->product_name);
+                        $img = $profile['image'];
                     @endphp
                     <article class="market-product-card">
                         <a href="{{ route('product.show', $product->product_id) }}" class="market-product-thumb">
@@ -279,8 +316,10 @@
                                 <svg viewBox="0 0 24 24" aria-hidden="true">
                                     <path d="M12 2a7 7 0 00-7 7c0 5.25 7 13 7 13s7-7.75 7-13a7 7 0 00-7-7zm0 10a3 3 0 110-6 3 3 0 010 6z" />
                                 </svg>
-                                <span>{{ $product->product_location }}</span>
+                                <span>{{ $profile['location'] ?? $product->product_location }}</span>
                             </p>
+                            <p class="market-product-copy">{{ $profile['detail'] }}</p>
+                            <p class="market-product-copy">{{ $profile['nutrition'] }}</p>
                             <div class="market-product-foot">
                                 <span
                                     class="market-badge {{ $badge === 'Withered' ? 'warn' : ($badge === 'Slightly Withered' ? 'mid' : 'ok') }}">{{ $badge }}</span>
@@ -301,21 +340,18 @@
         <section class="market-section market-articles" id="nutritional-products">
             <div class="market-section-head">
                 <h2>Nutritional Products</h2>
-                <a href="#nutritional-products">View all</a>
+                <a href="{{ route('market.nutrition.profile') }}">View all</a>
             </div>
 
             <div class="market-article-grid">
-                @foreach(['/images/nutritional_1.png', '/images/nutritional_2.png', '/images/nutritional_3.png', '/images/nutritional_4.png'] as $img)
+                @foreach($recipes as $recipe)
                     <article class="market-article-card">
-                        <img src="{{ $img }}" alt="Healthy nutritional article">
+                        <img src="{{ $recipe['image'] }}" alt="{{ $recipe['title'] }} recipe image">
                         <div class="market-article-body">
-                            <p class="market-article-meta">Author <span>Sep 30, 2022</span></p>
-                            <h3>Healthy vegetables salad to try</h3>
-                            <p>This refreshing and nutrient-packed salad combines vibrant vegetables, hearty chickpeas,
-                                and
-                                a zesty lemon-olive oil dressing. Perfect for a light lunch or a side dish, loaded with
-                                fiber, protein, and healthy fats.</p>
-                            <a href="#fresh-near-you">Read More</a>
+                            <p class="market-article-meta">FreshBytes Recipe <span>Philippine Kitchen</span></p>
+                            <h3>{{ $recipe['title'] }}</h3>
+                            <p>{{ $recipe['intro'] }}</p>
+                            <a href="{{ route('market.nutrition.recipe', $recipe['slug']) }}">Read Recipe</a>
                         </div>
                     </article>
                 @endforeach
@@ -339,6 +375,40 @@
             });
         </script>
     @endif
+
+    <script>
+        window.addEventListener('DOMContentLoaded', function () {
+            const trigger = document.querySelector('.market-notif-trigger');
+            const dropdown = document.getElementById('market-notif-dropdown');
+
+            if (!trigger || !dropdown) {
+                return;
+            }
+
+            const closeDropdown = () => {
+                dropdown.hidden = true;
+                trigger.setAttribute('aria-expanded', 'false');
+            };
+
+            trigger.addEventListener('click', function (event) {
+                event.stopPropagation();
+                const shouldOpen = dropdown.hidden;
+                dropdown.hidden = !shouldOpen;
+                trigger.setAttribute('aria-expanded', shouldOpen ? 'true' : 'false');
+            });
+
+            dropdown.addEventListener('click', function (event) {
+                event.stopPropagation();
+            });
+
+            document.addEventListener('click', closeDropdown);
+            document.addEventListener('keydown', function (event) {
+                if (event.key === 'Escape') {
+                    closeDropdown();
+                }
+            });
+        });
+    </script>
 </body>
 
 </html>

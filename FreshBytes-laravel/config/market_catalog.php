@@ -1,0 +1,191 @@
+<?php
+
+return [
+    'category_photos' => [
+        'leafy greens' => 'https://images.unsplash.com/photo-1615485290382-441e4d049cb5?auto=format&fit=crop&w=1200&q=80',
+        'root vegetables' => 'https://images.unsplash.com/photo-1518977676601-b53f82aba655?auto=format&fit=crop&w=1200&q=80',
+        'tropical fruits' => 'https://images.unsplash.com/photo-1519996529931-28324d5a630e?auto=format&fit=crop&w=1200&q=80',
+        'berries' => 'https://images.unsplash.com/photo-1563746098251-d35aef196e83?auto=format&fit=crop&w=1200&q=80',
+        'legumes' => 'https://images.unsplash.com/photo-1515543904379-3d757afe72e1?auto=format&fit=crop&w=1200&q=80',
+        'herbs' => 'https://images.unsplash.com/photo-1628773822503-930a7eaecf80?auto=format&fit=crop&w=1200&q=80',
+        'fresh fruits' => 'https://images.unsplash.com/photo-1619566636858-adf3ef46400b?auto=format&fit=crop&w=1200&q=80',
+        'cruciferous' => 'https://images.unsplash.com/photo-1614336215203-05a588f74627?auto=format&fit=crop&w=1200&q=80',
+        'mushrooms' => 'https://images.unsplash.com/photo-1504544750208-dc0358e63f7f?auto=format&fit=crop&w=1200&q=80',
+        'citrus fruits' => 'https://images.unsplash.com/photo-1611080626919-7cf5a9dbab5b?auto=format&fit=crop&w=1200&q=80',
+        'alliums' => 'https://images.unsplash.com/photo-1618512496248-a07fe83aa8cb?auto=format&fit=crop&w=1200&q=80',
+        'organic' => 'https://images.unsplash.com/photo-1461354464878-ad92f492a5a0?auto=format&fit=crop&w=1200&q=80',
+    ],
+
+    'category_keyword_map' => [
+        'leaf' => 'leafy greens',
+        'green' => 'leafy greens',
+        'root' => 'root vegetables',
+        'vegetable' => 'root vegetables',
+        'tropical' => 'tropical fruits',
+        'fruit' => 'fresh fruits',
+        'berr' => 'berries',
+        'legume' => 'legumes',
+        'herb' => 'herbs',
+        'crucif' => 'cruciferous',
+        'mushroom' => 'mushrooms',
+        'citrus' => 'citrus fruits',
+        'allium' => 'alliums',
+        'organic' => 'organic',
+    ],
+
+    'nutrition_index' => [
+        'A' => ['Ampalaya', 'Apple', 'Asparagus', 'Avocado'],
+        'B' => ['Banana', 'Basil', 'Bell pepper', 'Bok choy', 'Broccoli'],
+        'C' => ['Cabbage', 'Calamansi', 'Carrot', 'Cauliflower', 'Cashew'],
+        'K' => ['Kangkong', 'Kalabasa', 'Kamatis'],
+        'L' => ['Lettuce'],
+        'M' => ['Mangga'],
+        'P' => ['Papaya', 'Pechay', 'Pinya'],
+        'S' => ['Sitaw', 'Strawberries'],
+        'T' => ['Talong'],
+    ],
+
+    'products' => [
+        'fresh spinach' => [
+            'image' => 'https://images.unsplash.com/photo-1576045057995-568f588f82fb?auto=format&fit=crop&w=1200&q=80',
+            'detail' => 'Fresh spinach harvested in cool highland farms, ideal for smoothies and sauteed dishes.',
+            'nutrition' => 'Excellent source of iron, vitamin K, and folate.',
+            'location' => 'Benguet, Cordillera',
+        ],
+        'strawberries' => [
+            'image' => 'https://images.unsplash.com/photo-1518635017498-87f514b751ba?auto=format&fit=crop&w=1200&q=80',
+            'detail' => 'Sweet strawberries from La Trinidad, packed fresh for same-day dispatch.',
+            'nutrition' => 'Rich in vitamin C, manganese, and antioxidants.',
+            'location' => 'Baguio, Benguet',
+        ],
+        'carrots' => [
+            'image' => 'https://images.unsplash.com/photo-1598170845058-32b9d6a5da37?auto=format&fit=crop&w=1200&q=80',
+            'detail' => 'Baguio carrots with crisp texture and naturally sweet flavor for soups and stir-fry.',
+            'nutrition' => 'Loaded with beta-carotene for eye health.',
+            'location' => 'Benguet, Cordillera',
+        ],
+        'mangoes' => [
+            'image' => 'https://images.unsplash.com/photo-1553279768-865429fa0078?auto=format&fit=crop&w=1200&q=80',
+            'detail' => 'Carabao mangoes from Guimaras, ripe and aromatic with export-grade sweetness.',
+            'nutrition' => 'Packed with vitamin C and vitamin A.',
+            'location' => 'Guimaras, Western Visayas',
+        ],
+        'basil leaves' => [
+            'image' => 'https://images.unsplash.com/photo-1628773822503-930a7eaecf80?auto=format&fit=crop&w=1200&q=80',
+            'detail' => 'Fresh basil bunches grown without synthetic pesticides for pasta and soups.',
+            'nutrition' => 'Contains vitamin K and beneficial plant compounds.',
+            'location' => 'Bukidnon, Mindanao',
+        ],
+        'ampalaya' => [
+            'image' => 'https://images.unsplash.com/photo-1595008571145-2f1cbf7d4f57?auto=format&fit=crop&w=1200&q=80',
+            'detail' => 'Locally grown ampalaya from Bukidnon farms, ideal for pinakbet and sauteed dishes.',
+            'nutrition' => 'High in vitamin C and folate.',
+            'location' => 'Bukidnon, Mindanao',
+        ],
+        'talong' => [
+            'image' => 'https://images.unsplash.com/photo-1518735869015-566a18eae4be?auto=format&fit=crop&w=1200&q=80',
+            'detail' => 'Purple talong harvested in Nueva Ecija, perfect for tortang talong and grilling.',
+            'nutrition' => 'Contains antioxidants and dietary fiber.',
+            'location' => 'Nueva Ecija, Central Luzon',
+        ],
+        'sitaw' => [
+            'image' => 'https://images.unsplash.com/photo-1594282486552-05a0cb8f6d90?auto=format&fit=crop&w=1200&q=80',
+            'detail' => 'Fresh sitaw bundles from Laguna, best for adobo and ginataan recipes.',
+            'nutrition' => 'Good source of fiber and vitamin A.',
+            'location' => 'Laguna, CALABARZON',
+        ],
+        'kangkong' => [
+            'image' => 'https://images.unsplash.com/photo-1592415486689-125cbbfcbee2?auto=format&fit=crop&w=1200&q=80',
+            'detail' => 'Water spinach from Pampanga riverbeds, excellent for quick sauteed meals.',
+            'nutrition' => 'Rich in beta-carotene, iron, and vitamin K.',
+            'location' => 'Pampanga, Central Luzon',
+        ],
+        'pechay' => [
+            'image' => 'https://images.unsplash.com/photo-1618040996337-56904b7850b9?auto=format&fit=crop&w=1200&q=80',
+            'detail' => 'Crisp pechay from Benguet highland gardens, often used in soups and nilaga.',
+            'nutrition' => 'Contains calcium and vitamin C.',
+            'location' => 'Benguet, Cordillera',
+        ],
+        'kalabasa' => [
+            'image' => 'https://images.unsplash.com/photo-1604977042946-1eecc30f269e?auto=format&fit=crop&w=1200&q=80',
+            'detail' => 'Sweet kalabasa from Batangas fields, excellent for stews and ginataan.',
+            'nutrition' => 'High in vitamin A and complex carbohydrates.',
+            'location' => 'Batangas, CALABARZON',
+        ],
+        'kamatis' => [
+            'image' => 'https://images.unsplash.com/photo-1592924357228-91a4daadcfea?auto=format&fit=crop&w=1200&q=80',
+            'detail' => 'Ripe kamatis from Ilocos farms for salads and home-cooked viands.',
+            'nutrition' => 'Contains lycopene and vitamin C.',
+            'location' => 'Ilocos Norte, Ilocos Region',
+        ],
+        'saging' => [
+            'image' => 'https://images.unsplash.com/photo-1571771894821-ce9b6c11b08e?auto=format&fit=crop&w=1200&q=80',
+            'detail' => 'Lacatan bananas from Davao orchards, naturally sweet and easy to digest.',
+            'nutrition' => 'Potassium-rich fruit for energy and recovery.',
+            'location' => 'Davao del Norte, Davao Region',
+        ],
+        'mangga' => [
+            'image' => 'https://images.unsplash.com/photo-1553279768-865429fa0078?auto=format&fit=crop&w=1200&q=80',
+            'detail' => 'Carabao mangoes from Guimaras with fragrant aroma and smooth flesh.',
+            'nutrition' => 'Packed with vitamin C and vitamin A.',
+            'location' => 'Guimaras, Western Visayas',
+        ],
+        'papaya' => [
+            'image' => 'https://images.unsplash.com/photo-1517282009859-f000ec3b26fe?auto=format&fit=crop&w=1200&q=80',
+            'detail' => 'Papaya from Quezon farms, suitable for fruit bowls and soups like tinola.',
+            'nutrition' => 'Contains digestive enzymes and vitamin C.',
+            'location' => 'Quezon, CALABARZON',
+        ],
+        'pinya' => [
+            'image' => 'https://images.unsplash.com/photo-1589820296156-2454bb8a6ad1?auto=format&fit=crop&w=1200&q=80',
+            'detail' => 'Sweet Formosa pineapple from Bukidnon plantations, juicy and bright.',
+            'nutrition' => 'Known for bromelain enzymes and vitamin C.',
+            'location' => 'Bukidnon, Mindanao',
+        ],
+        'watermelon' => [
+            'image' => 'https://images.unsplash.com/photo-1563114773-84221bd62daa?auto=format&fit=crop&w=1200&q=80',
+            'detail' => 'Refreshing pakwan from Pangasinan, ideal for hot-weather hydration.',
+            'nutrition' => 'High water content and lycopene-rich fruit.',
+            'location' => 'Pangasinan, Ilocos Region',
+        ],
+        'carrot' => [
+            'image' => 'https://images.unsplash.com/photo-1598170845058-32b9d6a5da37?auto=format&fit=crop&w=1200&q=80',
+            'detail' => 'Baguio carrots with crisp texture and sweet taste for salads and soups.',
+            'nutrition' => 'Loaded with beta-carotene for eye health.',
+            'location' => 'Benguet, Cordillera',
+        ],
+        'lettuce' => [
+            'image' => 'https://images.unsplash.com/photo-1622205313162-be1d5712a43f?auto=format&fit=crop&w=1200&q=80',
+            'detail' => 'Hydroponic lettuce from Tagaytay growers, fresh-picked daily.',
+            'nutrition' => 'Low calorie greens with vitamin K and folate.',
+            'location' => 'Cavite, CALABARZON',
+        ],
+        'eggplant' => [
+            'image' => 'https://images.unsplash.com/photo-1518735869015-566a18eae4be?auto=format&fit=crop&w=1200&q=80',
+            'detail' => 'Slender eggplants from Tarlac farms, ideal for grilling and stews.',
+            'nutrition' => 'Contains anthocyanin antioxidants and fiber.',
+            'location' => 'Tarlac, Central Luzon',
+        ],
+    ],
+
+    'nutrition_profiles' => [
+        'fresh-spinach' => ['name' => 'Fresh Spinach', 'type' => 'Leafy Green', 'image' => 'https://images.unsplash.com/photo-1576045057995-568f588f82fb?auto=format&fit=crop&w=1200&q=80', 'chips' => ['Iron Rich', 'Vitamin K', 'Low Calorie'], 'description' => 'Spinach is nutrient-dense and supports blood, bone, and eye health when eaten regularly.', 'stats' => [['value' => '23', 'label' => 'Cal'], ['value' => '2.9g', 'label' => 'Protein'], ['value' => '3.6g', 'label' => 'Carbs'], ['value' => '0.4g', 'label' => 'Sugar'], ['value' => '2.2g', 'label' => 'Fiber']], 'facts' => [['name' => 'Total Fat', 'value' => '0.4 g', 'dv' => '0%'], ['name' => 'Vitamin K', 'value' => '483 ug', 'dv' => ''], ['name' => 'Folate', 'value' => '194 ug', 'dv' => ''], ['name' => 'Iron', 'value' => '2.7 mg', 'dv' => '']] ],
+        'strawberries' => ['name' => 'Strawberries', 'type' => 'Berry', 'image' => 'https://images.unsplash.com/photo-1518635017498-87f514b751ba?auto=format&fit=crop&w=1200&q=80', 'chips' => ['Antioxidants', 'Vitamin C', 'Hydrating'], 'description' => 'Strawberries are sweet berries with strong antioxidant content and vitamin C support.', 'stats' => [['value' => '32', 'label' => 'Cal'], ['value' => '0.7g', 'label' => 'Protein'], ['value' => '7.7g', 'label' => 'Carbs'], ['value' => '4.9g', 'label' => 'Sugar'], ['value' => '2g', 'label' => 'Fiber']], 'facts' => [['name' => 'Total Fat', 'value' => '0.3 g', 'dv' => '0%'], ['name' => 'Vitamin C', 'value' => '58.8 mg', 'dv' => ''], ['name' => 'Potassium', 'value' => '153 mg', 'dv' => '']] ],
+        'mangoes' => ['name' => 'Mangoes', 'type' => 'Fruit', 'image' => 'https://images.unsplash.com/photo-1553279768-865429fa0078?auto=format&fit=crop&w=1200&q=80', 'chips' => ['Vitamin A', 'Vitamin C', 'Tropical'], 'description' => 'Philippine mangoes are naturally sweet and support immunity and skin health.', 'stats' => [['value' => '60', 'label' => 'Cal'], ['value' => '0.8g', 'label' => 'Protein'], ['value' => '15g', 'label' => 'Carbs'], ['value' => '13.7g', 'label' => 'Sugar'], ['value' => '1.6g', 'label' => 'Fiber']], 'facts' => [['name' => 'Total Fat', 'value' => '0.4 g', 'dv' => '0%'], ['name' => 'Vitamin C', 'value' => '36.4 mg', 'dv' => ''], ['name' => 'Vitamin A', 'value' => '54 ug', 'dv' => '']] ],
+        'carrots' => ['name' => 'Carrots', 'type' => 'Root Vegetable', 'image' => 'https://images.unsplash.com/photo-1598170845058-32b9d6a5da37?auto=format&fit=crop&w=1200&q=80', 'chips' => ['Beta-Carotene', 'Eye Health', 'Crunchy'], 'description' => 'Carrots are root vegetables rich in beta-carotene and fiber for daily nutrition.', 'stats' => [['value' => '41', 'label' => 'Cal'], ['value' => '0.9g', 'label' => 'Protein'], ['value' => '10g', 'label' => 'Carbs'], ['value' => '4.7g', 'label' => 'Sugar'], ['value' => '2.8g', 'label' => 'Fiber']], 'facts' => [['name' => 'Total Fat', 'value' => '0.2 g', 'dv' => '0%'], ['name' => 'Vitamin A', 'value' => '835 ug', 'dv' => ''], ['name' => 'Potassium', 'value' => '320 mg', 'dv' => '']] ],
+    ],
+
+    'recipe_articles' => [
+        ['slug' => 'monggo-malunggay-soup', 'title' => 'Monggo with Malunggay', 'image' => 'https://images.unsplash.com/photo-1512621776951-a57141f2eefd?auto=format&fit=crop&w=1200&q=80', 'intro' => 'A comforting Filipino recipe rich in plant protein and leafy micronutrients.', 'content' => 'Saute garlic, onion, and tomato. Add cooked monggo beans and simmer with water or stock. Add malunggay leaves and season with fish sauce. Serve warm with brown rice for a nutrient-balanced meal.'],
+        ['slug' => 'tinolang-manok-with-papaya', 'title' => 'Tinolang Manok with Papaya', 'image' => 'https://images.unsplash.com/photo-1547592166-23ac45744acd?auto=format&fit=crop&w=1200&q=80', 'intro' => 'Classic Filipino soup with ginger, papaya, and leafy greens for immune support.', 'content' => 'Simmer chicken with ginger and onion until tender. Add green papaya and cook until soft. Finish with chili leaves or malunggay. This soup is hydrating and packed with vitamins.'],
+        ['slug' => 'ensaladang-talbos-kamatis', 'title' => 'Ensaladang Talbos at Kamatis', 'image' => 'https://images.unsplash.com/photo-1540189549336-e6e99c3679fe?auto=format&fit=crop&w=1200&q=80', 'intro' => 'A fresh side salad with local greens and tomatoes that is high in antioxidants.', 'content' => 'Blanch talbos briefly, then toss with sliced tomatoes, onion, and calamansi dressing. Add a pinch of sea salt and serve chilled. Great as a low-calorie side dish.'],
+        ['slug' => 'ginisang-ampalaya-itlog', 'title' => 'Ginisang Ampalaya with Egg', 'image' => 'https://images.unsplash.com/photo-1610192244261-19381e263af9?auto=format&fit=crop&w=1200&q=80', 'intro' => 'A household Filipino dish that balances bitterness with savory egg protein.', 'content' => 'Saute garlic, onion, and tomato, add sliced ampalaya, and cook quickly to keep texture. Add beaten eggs and stir gently. Best served immediately with steamed rice.' ],
+    ],
+
+    'fallback' => [
+        'image' => 'https://images.unsplash.com/photo-1542838132-92c53300491e?auto=format&fit=crop&w=1200&q=80',
+        'detail' => 'Fresh Philippine farm produce sourced from local growers and delivered quickly.',
+        'nutrition' => 'Naturally rich in essential vitamins and minerals for everyday meals.',
+        'location' => 'Luzon, Philippines',
+    ],
+];

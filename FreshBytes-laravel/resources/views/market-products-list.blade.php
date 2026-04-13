@@ -5,50 +5,69 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>{{ $title }} | FreshBytes</title>
     <link rel="icon" type="image/png" href="/images/logos-12-12.png">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Freeman&family=Outfit:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     @vite(['resources/css/app.css'])
 </head>
 <body class="market-page-body" style="font-family:'Outfit',sans-serif;">
     @php
-        $productImages = [
-            'Eggplant' => 'https://images.unsplash.com/photo-1518735869015-566a18eae4be?auto=format&fit=crop&w=640&q=80',
-            'Lettuce' => 'https://images.unsplash.com/photo-1622205313162-be1d5712a43f?auto=format&fit=crop&w=640&q=80',
-            'Squash' => 'https://images.unsplash.com/photo-1604977042946-1eecc30f269e?auto=format&fit=crop&w=640&q=80',
-            'Watermelon' => 'https://images.unsplash.com/photo-1563114773-84221bd62daa?auto=format&fit=crop&w=640&q=80',
-            'Apple' => 'https://images.unsplash.com/photo-1568702846914-96b305d2aaeb?auto=format&fit=crop&w=640&q=80',
-            'Carrot' => 'https://images.unsplash.com/photo-1598170845058-32b9d6a5da37?auto=format&fit=crop&w=640&q=80',
-            'Pechay' => 'https://images.unsplash.com/photo-1618040996337-56904b7850b9?auto=format&fit=crop&w=640&q=80',
-        ];
+        $catalog = config('market_catalog');
+        $productProfiles = $catalog['products'] ?? [];
+        $fallbackProfile = $catalog['fallback'] ?? [];
+
+        $resolveProductProfile = function ($productName) use ($productProfiles, $fallbackProfile) {
+            $normalized = strtolower(trim((string) $productName));
+            if (isset($productProfiles[$normalized])) {
+                return $productProfiles[$normalized];
+            }
+
+            foreach ($productProfiles as $name => $profile) {
+                if (str_contains($normalized, $name) || str_contains($name, $normalized)) {
+                    return $profile;
+                }
+            }
+
+            return $fallbackProfile;
+        };
     @endphp
     @include('layouts.market-navbar')
 
-    <main class="market-main" style="max-width:1300px;margin:18px auto 36px;padding:24px;">
-        <div style="display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap;">
-            <h1 style="margin:0;color:#fff;font-size:52px;">{{ $title }}</h1>
-            <a href="{{ route('market.home') }}" style="text-decoration:none;background:#9ee19e;color:#043522;border-radius:10px;padding:10px 16px;font-weight:700;">Back to Market</a>
-        </div>
+    <main class="market-main market-subpage-main">
+        <section class="market-subpage-shell market-list-shell">
+            <div class="market-page-head-row">
+                <h1 class="market-subpage-title">{{ $title }}</h1>
+                <a href="{{ route('market.home') }}" class="market-back-link">Back to Market</a>
+            </div>
 
-        <section style="margin-top:18px;" class="market-product-grid">
-            @foreach($products as $product)
-                @php
-                    $img = $productImages[$product->product_name] ?? 'https://images.unsplash.com/photo-1542838132-92c53300491e?auto=format&fit=crop&w=640&q=80';
-                @endphp
-                <article class="market-product-card">
-                    <a href="{{ route('product.show', $product->product_id) }}" class="market-product-thumb">
-                        <img src="{{ $img }}" alt="{{ $product->product_name }}">
-                    </a>
-                    <div class="market-product-details">
-                        <p class="market-product-title">{{ $product->product_name }}</p>
-                        <p class="market-product-price">₱{{ number_format($product->product_price, 2) }} / {{ $product->product_unit ?? 'kg' }}</p>
-                        <p class="market-product-meta">{{ $product->sell_count ?? 0 }} sold</p>
-                        <p class="market-product-loc"><span>{{ $product->product_location }}</span></p>
-                        <form action="{{ route('cart.add', $product->product_id) }}" method="post" class="market-cart-form">
-                            @csrf
-                            <input type="hidden" name="return_anchor" value="fresh-near-you">
-                            <button type="submit" class="market-cart-btn">Add to cart</button>
-                        </form>
-                    </div>
-                </article>
-            @endforeach
+            <p class="market-page-summary">Locally sourced fruits and vegetables from Philippine farms, curated for freshness and daily cooking.</p>
+
+            <section style="margin-top:18px;" class="market-product-grid">
+                @foreach($products as $product)
+                    @php
+                        $profile = $resolveProductProfile($product->product_name);
+                        $img = $profile['image'];
+                    @endphp
+                    <article class="market-product-card">
+                        <a href="{{ route('product.show', $product->product_id) }}" class="market-product-thumb">
+                            <img src="{{ $img }}" alt="{{ $product->product_name }}">
+                        </a>
+                        <div class="market-product-details">
+                            <p class="market-product-title">{{ $product->product_name }}</p>
+                            <p class="market-product-price">₱{{ number_format($product->product_price, 2) }} / {{ $product->product_unit ?? 'kg' }}</p>
+                            <p class="market-product-meta">{{ $product->sell_count ?? 0 }} sold</p>
+                            <p class="market-product-loc"><span>{{ $profile['location'] ?? $product->product_location }}</span></p>
+                            <p class="market-product-copy">{{ $profile['detail'] }}</p>
+                            <p class="market-product-copy">{{ $profile['nutrition'] }}</p>
+                            <form action="{{ route('cart.add', $product->product_id) }}" method="post" class="market-cart-form">
+                                @csrf
+                                <input type="hidden" name="return_anchor" value="fresh-near-you">
+                                <button type="submit" class="market-cart-btn">Add to cart</button>
+                            </form>
+                        </div>
+                    </article>
+                @endforeach
+            </section>
         </section>
     </main>
 
