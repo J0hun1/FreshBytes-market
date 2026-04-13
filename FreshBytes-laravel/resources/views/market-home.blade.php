@@ -34,6 +34,22 @@
             'Berries' => '/images/BERRIES_NOBG.png',
         ];
 
+        $resolveCategoryImage = function ($categoryName) use ($categoryImages) {
+            if (isset($categoryImages[$categoryName])) {
+                return $categoryImages[$categoryName];
+            }
+
+            $name = strtolower(trim($categoryName));
+
+            return match (true) {
+                str_contains($name, 'leaf') || str_contains($name, 'green') => '/images/LeafyGreens_NOBG.png',
+                str_contains($name, 'root') || str_contains($name, 'vegetable') => '/images/RootVeg_NOBG.png',
+                str_contains($name, 'tropical') || str_contains($name, 'fruit') => '/images/TropicalFruits_NOBG.png',
+                str_contains($name, 'berr') => '/images/BERRIES_NOBG.png',
+                default => '/images/market_banner.png',
+            };
+        };
+
         $cards = $products->take(8);
         $recommendedCards = ($recommendedProducts ?? collect())->take(8);
         if ($recommendedCards->isEmpty()) {
@@ -60,48 +76,40 @@
 
             <div class="market-actions">
                 <a href="#nutritional-products" aria-label="Nutrition">
-                    <svg viewBox="0 0 24 24">
-                        <path
-                            d="M6 2h9a3 3 0 013 3v15a2 2 0 01-2 2H6a3 3 0 01-3-3V5a3 3 0 013-3zm0 2a1 1 0 00-1 1v14a1 1 0 001 1h10V5a1 1 0 00-1-1H6z" />
-                    </svg>
+                    <img src="/images/market_topButtons_nutriotional.png" alt="Nutrition">
                     <span>Nutrition</span>
                 </a>
                 <a href="#recommended-bites" aria-label="Notifications">
-                    <svg viewBox="0 0 24 24">
-                        <path
-                            d="M12 2a6 6 0 016 6v3.59l1.7 2.54A1 1 0 0118.87 16H5.13a1 1 0 01-.83-1.87L6 11.59V8a6 6 0 016-6zm0 20a3 3 0 002.83-2h-5.66A3 3 0 0012 22z" />
-                    </svg>
+                    <img src="/images/market_topButtons_notifs.png" alt="Notifications">
                     <span>Notifications</span>
                 </a>
                 <a href="#fresh-near-you" aria-label="Wishlist">
-                    <svg viewBox="0 0 24 24">
-                        <path d="M12 21s-7-4.35-7-10a4 4 0 017-2.65A4 4 0 0119 11c0 5.65-7 10-7 10z" />
-                    </svg>
+                    <img src="/images/market_topButtons_wishlist.png" alt="Wishlist">
                     <span>Wish. list</span>
                 </a>
                 <a href="{{ route('cart.index') }}" aria-label="Cart">
-                    <svg viewBox="0 0 24 24">
-                        <path
-                            d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13l-1 5h12M9 20a1 1 0 102 0 1 1 0 00-2 0zm8 0a1 1 0 102 0 1 1 0 00-2 0z" />
-                    </svg>
+                    <img src="/images/market_topButtons_cart.png" alt="Cart">
                     <span>Cart</span>
                 </a>
+                @auth
+                    <a href="{{ route('account.index') }}" aria-label="My Account">
+                        <img src="/images/market_topButtons_myAcc.png" alt="My Account">
+                        <span>My Account</span>
+                    </a>
+                @endauth
                 @auth
                     <form action="{{ route('auth.logout') }}" method="post" class="market-account-form">
                         @csrf
                         <button type="submit" aria-label="Logout">
-                            <svg viewBox="0 0 24 24">
-                                <path
-                                    d="M10 3h7a2 2 0 012 2v14a2 2 0 01-2 2h-7v-2h7V5h-7V3zm-1 4l-1.41 1.41L10.17 11H3v2h7.17l-2.58 2.59L9 17l5-5-5-5z" />
+                            <svg class="market-logout-icon" viewBox="0 0 24 24" aria-hidden="true">
+                                <path d="M10 3h7a2 2 0 012 2v14a2 2 0 01-2 2h-7v-2h7V5h-7V3zm-1 4l-1.41 1.41L10.17 11H3v2h7.17l-2.58 2.59L9 17l5-5-5-5z"/>
                             </svg>
                             <span>Logout</span>
                         </button>
                     </form>
                 @else
                     <a href="{{ route('auth.login') }}" aria-label="My Account">
-                        <svg viewBox="0 0 24 24">
-                            <path d="M12 12a5 5 0 100-10 5 5 0 000 10zm0 2c-4.42 0-8 2.24-8 5v1h16v-1c0-2.76-3.58-5-8-5z" />
-                        </svg>
+                        <img src="/images/market_topButtons_myAcc.png" alt="My Account">
                         <span>My Account</span>
                     </a>
                 @endauth
@@ -117,7 +125,7 @@
                     </svg>
                 </summary>
                 <div class="market-categories-menu">
-                    <a href="{{ route('market.home') }}">All Products</a>
+                    <a href="{{ route('market.categories') }}">View all categories</a>
                     @foreach($categories as $category)
                         <a
                             href="{{ route('market.home', ['category' => $category->category_id, 'q' => request('q')]) }}">{{ $category->category_name }}</a>
@@ -126,8 +134,8 @@
             </details>
             <nav class="market-menu-links" aria-label="Primary">
                 <a href="{{ route('market.home') }}">Home</a>
-                <a href="#all-categories">Categories</a>
-                <a href="#all-products">Shop</a>
+                <a href="{{ route('market.categories') }}">Categories</a>
+                <a href="#fresh-near-you">Shop</a>
                 <a href="#nutritional-products">Nutritional</a>
                 <a href="{{ route('seller.register') }}">Start Selling</a>
             </nav>
@@ -137,6 +145,12 @@
     </nav>
 
     <main class="market-main">
+        @if(session('success'))
+            <div class="market-toast" id="market-toast" role="status" aria-live="polite">
+                {{ session('success') }}
+            </div>
+        @endif
+
         <section class="market-hero-card">
             <article class="market-hero-copy">
                 <h1>Explore Latest</h1>
@@ -151,8 +165,7 @@
             <div class="max-w-screen-xl px-4 mx-auto 2xl:px-0">
                 <div class="market-section-head">
                     <h2>Featured Categories</h2>
-                    <a href="#" class="js-toggle-categories" data-target="#all-categories-grid"
-                        id="categories-toggle-btn">View all</a>
+                    <a href="{{ route('market.categories') }}">View all</a>
                 </div>
 
                 <div class="categories-grids-container">
@@ -160,20 +173,7 @@
                         @foreach(($featuredCategories ?? $categories ?? collect())->take(4) as $cat)
                             <article class="market-featured-card">
                                 <a href="{{ route('market.home', ['category' => $cat->category_id]) }}">
-                                    <img src="{{ $categoryImages[$cat->category_name] ?? '/images/market_banner.png' }}"
-                                        alt="{{ $cat->category_name }}">
-                                </a>
-                                <h3>{{ strtoupper($cat->category_name) }}</h3>
-                                <p>{{ $products->where('category_id', $cat->category_id)->count() }} Products</p>
-                            </article>
-                        @endforeach
-                    </div>
-
-                    <div id="all-categories-grid" class="market-featured-grid hidden">
-                        @foreach($categories ?? collect() as $cat)
-                            <article class="market-featured-card">
-                                <a href="{{ route('market.home', ['category' => $cat->category_id]) }}">
-                                    <img src="{{ $categoryImages[$cat->category_name] ?? '/images/market_banner.png' }}"
+                                    <img src="{{ $resolveCategoryImage($cat->category_name) }}"
                                         alt="{{ $cat->category_name }}">
                                 </a>
                                 <h3>{{ strtoupper($cat->category_name) }}</h3>
@@ -185,11 +185,11 @@
             </div>
         </section>
 
-        <section class="market-section" id="all-products">
+        <section class="market-section" id="fresh-near-you">
             <div class="max-w-screen-xl px-4 mx-auto 2xl:px-0">
                 <div class="market-section-head">
                     <h2>Fresh Bites Near You</h2>
-                    <a href="#fresh-near-you">View all</a>
+                    <a href="{{ route('market.products.nearby') }}">View all</a>
                 </div>
 
                 <div class="market-product-grid">
@@ -232,6 +232,7 @@
                                 <form action="{{ route('cart.add', $product->product_id) }}" method="post"
                                     class="market-cart-form">
                                     @csrf
+                                    <input type="hidden" name="return_anchor" value="fresh-near-you">
                                     <button type="submit" class="market-cart-btn">Add to cart</button>
                                 </form>
                             </div>
@@ -242,13 +243,14 @@
         </section>
 
         <section class="market-section" id="recommended-bites">
-            <div class="market-section-head">
-                <h2>Recommended Bites For You</h2>
-                <a href="#recommended-bites">View all</a>
-            </div>
+            <div class="max-w-screen-xl px-4 mx-auto 2xl:px-0">
+                <div class="market-section-head">
+                    <h2>Recommended Bites For You</h2>
+                    <a href="{{ route('market.products.popular') }}">View all</a>
+                </div>
 
-            <div class="market-product-grid">
-                @foreach($recommendedCards as $product)
+                <div class="market-product-grid">
+                    @foreach($recommendedCards as $product)
                     @php
                         $distance = number_format(($product->product_id % 4) + 1.4, 1);
                         $hoursAgo = ($product->product_id % 6) + 1;
@@ -286,11 +288,13 @@
                             </div>
                             <form action="{{ route('cart.add', $product->product_id) }}" method="post" class="market-cart-form">
                                 @csrf
+                                <input type="hidden" name="return_anchor" value="recommended-bites">
                                 <button type="submit" class="market-cart-btn">Add to cart</button>
                             </form>
                         </div>
                     </article>
                 @endforeach
+                </div>
             </div>
         </section>
 
@@ -323,6 +327,18 @@
         @include('layouts.footer')
     </div>
     </div>
+
+    @if(session('success'))
+        <script>
+            window.addEventListener('DOMContentLoaded', function () {
+                const toast = document.getElementById('market-toast');
+                if (!toast) return;
+                setTimeout(() => {
+                    toast.classList.add('is-hidden');
+                }, 2600);
+            });
+        </script>
+    @endif
 </body>
 
 </html>

@@ -1322,14 +1322,69 @@ body.market-page-body {
     color: #fff;
     font-family: 'Open Sans', sans-serif;
     overflow-x: clip;
+    position: relative;
+}
+
+body.market-page-body::before,
+body.market-page-body::after {
+    content: '';
+    position: fixed;
+    border-radius: 999px;
+    pointer-events: none;
+    z-index: 0;
+}
+
+body.market-page-body::before {
+    width: 592px;
+    height: 599px;
+    right: -220px;
+    top: -20px;
+    background: #87ab50;
+    filter: blur(250px);
+}
+
+body.market-page-body::after {
+    width: 448px;
+    height: 599px;
+    left: -260px;
+    top: 34%;
+    background: #87ab50;
+    filter: blur(350px);
 }
 
 .market-page-wrap {
     position: relative;
-    width: min(1526px, 96vw);
+    width: min(1526px, 100vw);
     margin: 0 auto;
-    padding: 24px 24px 0;
+    padding: 0;
     z-index: 2;
+}
+
+.market-page-wrap::before,
+.market-page-wrap::after {
+    content: '';
+    position: fixed;
+    pointer-events: none;
+    z-index: 1;
+    border-radius: 999px;
+}
+
+.market-page-wrap::before {
+    width: 1428px;
+    height: 1199px;
+    right: -740px;
+    top: 34%;
+    background: rgba(221, 210, 49, 0.4);
+    filter: blur(250px);
+}
+
+.market-page-wrap::after {
+    width: 2122px;
+    height: 1022px;
+    right: -980px;
+    bottom: -560px;
+    background: #1c3a28;
+    filter: blur(500px);
 }
 
 .market-bg-glow {
@@ -1366,10 +1421,15 @@ body.market-page-body {
 }
 
 .market-header {
-    position: relative;
-    z-index: 20;
-    background: linear-gradient(181.23deg, #093216 27.52%, #16dcc7 222.22%);
+    position: sticky;
+    top: 0;
+    z-index: 70;
     border-radius: 0;
+    padding-top: 10px;
+    padding-bottom: 8px;
+    background: #093216;
+    backdrop-filter: blur(8px);
+    border-bottom: 1px solid rgba(158, 225, 158, 0.18);
 }
 .market-main,
 .market-footer {
@@ -1379,9 +1439,9 @@ body.market-page-body {
 
 .market-topbar {
     display: grid;
-    grid-template-columns: auto minmax(260px, 560px) auto;
+    grid-template-columns: 220px minmax(260px, 420px) minmax(360px, 1fr);
     align-items: center;
-    gap: 20px;
+    gap: 14px;
 }
 
 .market-brand {
@@ -1392,22 +1452,23 @@ body.market-page-body {
 }
 
 .market-brand img {
-    width: 68px;
-    height: 64px;
+    width: 48px;
+    height: 44px;
     object-fit: contain;
     filter: drop-shadow(0 4px 4px rgba(0, 0, 0, 0.25));
 }
 
 .market-brand span {
     font-family: 'Fredoka', sans-serif;
-    font-size: 22px;
-    line-height: 27px;
+    font-size: 21px;
+    line-height: 1;
     color: #fff;
     font-weight: 700;
 }
 
 .market-search {
-    height: 63px;
+    width: min(100%, 420px);
+    height: 44px;
     border-radius: 42px;
     background: rgba(217, 217, 217, 0.1);
     display: flex;
@@ -1431,6 +1492,7 @@ body.market-page-body {
     color: #fff;
     font-family: 'Open Sans', sans-serif;
     font-size: 16px;
+    line-height: 22px;
     font-weight: 700;
 }
 
@@ -1440,8 +1502,8 @@ body.market-page-body {
 
 .market-actions {
     display: grid;
-    grid-template-columns: repeat(5, minmax(64px, auto));
-    gap: 8px;
+    grid-template-columns: repeat(6, minmax(56px, auto));
+    gap: 4px;
 }
 
 .market-actions a,
@@ -1457,7 +1519,7 @@ body.market-page-body {
     border: 0;
     cursor: pointer;
     font-family: 'Open Sans', sans-serif;
-    font-size: 9px;
+    font-size: 10px;
     font-weight: 600;
     padding: 0;
 }
@@ -1468,17 +1530,29 @@ body.market-page-body {
     fill: #fff;
 }
 
+.market-actions img {
+    width: 24px;
+    height: 18px;
+    object-fit: contain;
+}
+
+.market-logout-icon {
+    width: 22px;
+    height: 22px;
+    fill: #ffffff;
+}
+
 .market-account-form {
     margin: 0;
 }
 
 .market-menubar {
-    margin-top: 18px;
+    margin-top: 10px;
     display: flex;
     align-items: center;
     gap: 24px;
     position: relative;
-    min-height: 67px;
+    min-height: 52px;
 }
 
 .market-categories {
@@ -1495,14 +1569,14 @@ body.market-page-body {
 
 .market-categories-btn {
     width: 303px;
-    height: 67px;
+    height: 50px;
     border: 0;
     border-radius: 0;
     background: linear-gradient(266.22deg, #345d0f -9.98%, #70a044 56.97%);
     color: #fff;
     font-family: 'Outfit', sans-serif;
     font-weight: 600;
-    font-size: 18px;
+    font-size: 16px;
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -1512,8 +1586,8 @@ body.market-page-body {
 }
 
 .market-categories-btn svg {
-    width: 30px;
-    height: 30px;
+    width: 22px;
+    height: 22px;
     fill: #f3f3f3;
 }
 
@@ -1549,12 +1623,12 @@ body.market-page-body {
     display: flex;
     align-items: center;
     flex-wrap: wrap;
-    gap: 26px;
+    gap: 18px;
     position: absolute;
     width: 721px;
     height: 32px;
     left: 402px;
-    top: 18px;
+    top: 8px;
 }
 
 .market-menu-links a {
@@ -1562,23 +1636,23 @@ body.market-page-body {
     color: #9ee19e;
     font-family: 'Outfit', sans-serif;
     font-weight: 600;
-    font-size: 24px;
-    line-height: 30px;
+    font-size: 18px;
+    line-height: 24px;
 }
 
 .market-main {
     background: transparent;
     color: #fff;
     border-radius: 0;
-    padding: 40px 30px 60px;
-    margin-top: 20px;
+    padding: 40px 65px 60px;
+    margin-top: 40px;
     box-shadow: none;
 }
 
 .market-hero-card {
     background: #9ee19e;
     border-radius: 22px;
-    min-height: 300px;
+    min-height: 397px;
     display: grid;
     grid-template-columns: 1fr minmax(320px, 620px);
     align-items: center;
@@ -1591,16 +1665,17 @@ body.market-page-body {
     color: #000912;
     font-family: 'Outfit', sans-serif;
     font-weight: 700;
-    font-size: clamp(37px, 4vw, 51px);
-    line-height: 1.15;
+    font-size: clamp(46px, 4.6vw, 64px);
+    line-height: 81px;
 }
 
 .market-hero-copy p {
     margin: 8px 0 16px;
     color: #1f2a36;
     font-family: 'Outfit', sans-serif;
-    font-size: 19px;
+    font-size: 24px;
     font-weight: 700;
+    line-height: 30px;
 }
 
 .market-hero-copy a {
@@ -1614,7 +1689,8 @@ body.market-page-body {
     text-decoration: none;
     color: #000;
     font-family: 'Outfit', sans-serif;
-    font-size: 29px;
+    font-size: 36px;
+    line-height: 45px;
     font-weight: 700;
 }
 
@@ -1638,15 +1714,18 @@ body.market-page-body {
 
 .market-section-head h2 { margin: 0;
     font-family: 'Open Sans', sans-serif;
-    font-size: clamp(22px, 2.4vw, 37px);
+    font-size: 32px;
+    line-height: 44px;
     font-weight: 700;
-    color: #0b1a2f;}
+    color: #ffffff;
+}
 
 .market-section-head a {
     text-decoration: none;
     color: #9ee19e;
     font-family: 'Open Sans', sans-serif;
-    font-size: 19px;
+    font-size: 24px;
+    line-height: 33px;
     font-weight: 600;
 }
 
@@ -1677,9 +1756,9 @@ body.market-page-body {
 }
 
 .market-featured-card {
-    background: linear-gradient(180deg, rgba(255, 255, 255, 0.09) 0%, rgba(0, 0, 0, 0.22) 100%);
-    min-height: 220px;
-    padding: 10px 8px 12px;
+    background: rgba(217, 217, 217, 0.1);
+    min-height: 306px;
+    padding: 12px 8px 12px;
     text-align: center;
 }
 
@@ -1689,14 +1768,14 @@ body.market-page-body {
 
 .market-featured-card img {
     width: 100%;
-height: 140px;
+    height: 214px;
     object-fit: contain;
 }
 
 .market-featured-card h3 {
     margin: 8px 0 4px;
     font-family: 'Freeman', sans-serif;
-    font-size: 19px;
+    font-size: 32px;
     line-height: 1.1;
     color: #fff;
 }
@@ -1704,33 +1783,37 @@ height: 140px;
 .market-featured-card p {
     margin: 0;
     font-family: 'Fredoka', sans-serif;
-    font-size: 11px;
-    color: rgba(255, 255, 255, 0.82);
+    font-size: 18px;
+    color: #fff;
 }
 
 .market-product-grid {
     display: grid;
     grid-template-columns: repeat(4, minmax(0, 1fr));
-    gap: 18px;
+    justify-content: initial;
+    gap: 20px;
+    width: 100%;
 }
 
 .market-product-card {
     margin: 0;
-    background: rgba(217, 217, 217, 0.14);
-    border-radius: 11px;
+    background: rgba(217, 217, 217, 0.1);
+    border-radius: 15px;
     overflow: hidden;
     position: relative;
-    padding: 10px;
-    border: 1px solid rgba(255, 255, 255, 0.08);
+    padding: 12px;
+    min-height: 0;
+    border: 0;
     box-shadow: none;
+    width: 100%;
 }
 
 .market-product-thumb {
     display: block;
     aspect-ratio: 1 / 1;
     height: auto;
-    background: rgba(0, 0, 0, 0.18);
-    border-radius: 8px;
+    background: rgba(217, 217, 217, 0.1);
+    border-radius: 3px;
     overflow: hidden;
 }
 
@@ -1763,8 +1846,8 @@ height: 140px;
 
 .market-product-details {
     margin-top: 8px;
-    padding: 10px 8px 8px;
-    border-radius: 8px;
+    padding: 8px 10px;
+    border-radius: 11px;
     background: rgba(217, 217, 217, 0.14);
     min-height: 130.64px;
     position: relative;
@@ -1885,16 +1968,80 @@ height: 140px;
 
 .market-article-card {
     background: rgba(217, 217, 217, 0.1);
+    min-height: 721px;
 }
 
 .market-article-card img {
     width: 100%;
-    height: 280px;
+    height: 397px;
     object-fit: cover;
+    object-position: center;
+    background: rgba(0, 0, 0, 0.12);
+}
+
+.market-toast {
+    position: fixed;
+    top: 92px;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 120;
+    background: rgba(21, 56, 30, 0.96);
+    border: 2px solid rgba(158, 225, 158, 0.75);
+    color: #ecfff2;
+    padding: 14px 20px;
+    min-width: 280px;
+    text-align: center;
+    border-radius: 10px;
+    font-family: 'Outfit', sans-serif;
+    font-size: 28px;
+    font-weight: 600;
+    box-shadow: 0 14px 30px rgba(0, 0, 0, 0.32);
+    transition: opacity 0.2s ease, transform 0.2s ease;
+    pointer-events: none;
+}
+
+.market-toast.is-hidden {
+    opacity: 0;
+    transform: translate(-50%, -8px);
+    pointer-events: none;
+}
+
+.market-shared-footer {
+    position: relative;
+    z-index: 80;
+    background: #093216;
+    isolation: isolate;
+}
+
+body.market-page-body footer,
+.market-shared-footer > footer {
+    position: relative;
+    z-index: 81;
+    opacity: 1 !important;
+    background: #093216 !important;
+    filter: none !important;
+}
+
+body.market-page-body footer p,
+body.market-page-body footer span,
+body.market-page-body footer h3,
+body.market-page-body footer a,
+body.market-page-body footer h5,
+.market-shared-footer > footer p,
+.market-shared-footer > footer span,
+.market-shared-footer > footer h3,
+.market-shared-footer > footer a,
+.market-shared-footer > footer h5 {
+    color: #ecfff2 !important;
+}
+
+body.market-page-body footer hr,
+.market-shared-footer > footer hr {
+    border-color: rgba(255, 255, 255, 0.2) !important;
 }
 
 .market-article-body {
-    padding: 14px 22px 18px;
+    padding: 18px 26px 18px;
 }
 
 .market-article-meta {
@@ -1902,34 +2049,35 @@ height: 140px;
     display: flex;
     gap: 18px;
     align-items: center;
-    color: #1b1b18;
+    color: #ecfff2;
     font-family: 'Fredoka', sans-serif;
-    font-size: 13px;
+    font-size: 16px;
 }
 
 .market-article-meta span {
-    color: #1b1b18;
+    color: rgba(236, 255, 242, 0.88);
 }
 
 .market-article-body h3 {
     margin: 10px 0 8px;
     font-family: 'Freeman', sans-serif;
-    font-size: 26px;
-    color: #1b1b18;
+    font-size: 32px;
+    color: #ffffff;
 }
 
 .market-article-body p {
     margin: 0 0 12px;
-    color: #1b1b18;
+    color: rgba(236, 255, 242, 0.9);
     font-family: 'Fredoka', sans-serif;
-    font-size: 18px;
+    font-size: 22px;
+    line-height: 27px;
 }
 
 .market-article-body a {
     text-decoration: none;
-    color: #1b1b18;
+    color: #9ee19e;
     font-family: 'Fredoka', sans-serif;
-    font-size: 18px;
+    font-size: 22px;
 }
 
 .market-footer {
@@ -1981,7 +2129,7 @@ height: 140px;
 .market-footer-bottom {
     height: 60px;
     padding: 0 18px;
-    background: #03220d;
+    background: #093216;
     display: flex;
     align-items: center;
     gap: 24px;
@@ -2000,30 +2148,17 @@ height: 140px;
     margin-left: auto;
 }
 
-.market-shared-footer > footer {
-    background: #093216 !important;
-}
-
-.market-shared-footer > footer p,
-.market-shared-footer > footer span,
-.market-shared-footer > footer h3,
-.market-shared-footer > footer a {
-    color: #ecfff2 !important;
-}
-
-.market-shared-footer > footer hr {
-    border-color: rgba(255, 255, 255, 0.2) !important;
-}
-
 @media (max-width: 1200px) {
     .market-topbar {
         grid-template-columns: 1fr;
     }
 
     .market-actions {
-        grid-template-columns: repeat(5, minmax(0, 120px));
+        grid-template-columns: repeat(6, minmax(0, 92px));
         justify-content: start;
     }
+
+    .market-actions img { width: 22px; height: 16px; }
 
     .market-menubar {
         flex-direction: column;
@@ -2037,15 +2172,18 @@ height: 140px;
         height: auto;
     }
 
+    .market-product-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        justify-content: initial;
+    }
+
     .market-categories-btn {
         width: 100%;
         max-width: 360px;
     }
 
     .market-featured-grid,
-    .market-product-grid {
-        grid-template-columns: repeat(2, minmax(0, 1fr));
-    }
+    .market-product-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
 
     .market-article-grid {
         grid-template-columns: 1fr;
@@ -2060,6 +2198,10 @@ height: 140px;
     .market-page-wrap {
         width: 100%;
         padding: 16px 12px 0;
+    }
+
+    .nav-container {
+        padding: 0 12px;
     }
 
     .market-brand img {
@@ -2081,6 +2223,19 @@ height: 140px;
 
     .market-actions {
         grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+
+    .market-actions img {
+        width: 20px;
+        height: 14px;
+    }
+
+    .market-toast {
+        top: 82px;
+        width: calc(100vw - 24px);
+        min-width: 0;
+        font-size: 18px;
+        padding: 12px 14px;
     }
 
     .market-menu-links {
@@ -2109,6 +2264,21 @@ height: 140px;
     .market-featured-grid,
     .market-product-grid {
         grid-template-columns: 1fr;
+        gap: 16px;
+    }
+
+    .market-main {
+        padding: 20px 12px 36px;
+        margin-top: 8px;
+    }
+
+    .market-section-head {
+        margin-bottom: 14px;
+    }
+
+    .market-section-head h2 {
+        font-size: 24px;
+        line-height: 32px;
     }
 
     .market-featured-card h3,

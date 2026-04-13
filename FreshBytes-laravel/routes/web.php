@@ -6,6 +6,7 @@ use App\Models\Category;
 use App\Http\Controllers\CartController;
 use App\Http\Controllers\SellerController;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\AccountController;
 use App\Models\Product;
 
 Route::get('/', function () {
@@ -47,6 +48,44 @@ Route::get('/market', function (Request $request) {
 
     return view('market-home', compact('categories', 'products', 'featuredCategories', 'recommendedProducts'));
 })->name('market.home');
+
+Route::get('/market/categories', function () {
+    $categories = Category::where('category_isActive', true)
+        ->orderBy('category_name')
+        ->get();
+
+    $products = Product::where('is_active', true)
+        ->where('is_deleted', false)
+        ->get();
+
+    return view('market-categories', compact('categories', 'products'));
+})->name('market.categories');
+
+Route::get('/market/products/nearby', function () {
+    $products = Product::where('is_active', true)
+        ->where('is_deleted', false)
+        ->orderBy('product_location')
+        ->orderByDesc('post_date')
+        ->get();
+
+    return view('market-products-list', [
+        'title' => 'Fresh Bites Near You',
+        'products' => $products,
+    ]);
+})->name('market.products.nearby');
+
+Route::get('/market/products/popular', function () {
+    $products = Product::where('is_active', true)
+        ->where('is_deleted', false)
+        ->orderByDesc('sell_count')
+        ->orderByDesc('top_rated')
+        ->get();
+
+    return view('market-products-list', [
+        'title' => 'Popular Products',
+        'products' => $products,
+    ]);
+})->name('market.products.popular');
 
 $products = [
     1 => [
@@ -138,6 +177,9 @@ Route::get('/products/{id}', function ($id) {
 
 Route::post('/cart/add/{id}', [CartController::class, 'add'])->name('cart.add');
 Route::get('/cart', [CartController::class, 'index'])->name('cart.index');
+Route::post('/cart/update/{id}', [CartController::class, 'update'])->name('cart.update');
+Route::post('/cart/remove/{id}', [CartController::class, 'remove'])->name('cart.remove');
+Route::post('/cart/checkout', [CartController::class, 'checkout'])->name('cart.checkout');
 
 Route::get('/login', [AuthController::class, 'showLogin'])->name('auth.login');
 Route::get('/signup', [AuthController::class, 'showSignup'])->name('auth.signup');
@@ -153,5 +195,8 @@ Route::post('/auth/google', [AuthController::class, 'google'])->name('auth.googl
 Route::middleware('auth')->group(function () {
 Route::get('/seller/register', [SellerController::class, 'create'])->name('seller.register');
 Route::post('/seller/register', [SellerController::class, 'store']);
+
+Route::get('/account', [AccountController::class, 'index'])->name('account.index');
+Route::post('/account/settings', [AccountController::class, 'updateSettings'])->name('account.settings.update');
 });
 Route::match(['get', 'post'], '/forgot-password', [AuthController::class, 'forgotPassword'])->name('auth.forgot-password');
