@@ -226,17 +226,16 @@
                 </div>
 
                 <div class="market-product-grid">
-                    @foreach($cards as $product)
+@foreach($cards as $product)
                         @php
+                            $profile = $resolveProductProfile($product->product_name);
                             $distance = number_format(($product->product_id % 4) + 1.4, 1);
                             $hoursAgo = ($product->product_id % 6) + 1;
                             $badge = $product->product_status === 'withered' ? 'Withered' : (($product->product_id % 3 === 0) ? 'Slightly Withered' : 'Fresh');
-                            $profile = $resolveProductProfile($product->product_name);
-                            $img = $profile['image'];
                         @endphp
                         <article class="market-product-card">
                             <a href="{{ route('product.show', $product->product_id) }}" class="market-product-thumb">
-                                <img src="{{ $img }}" alt="{{ $product->product_name }}">
+                                <img src="{{ $product->image_url ?? 'https://images.unsplash.com/photo-1542838132-92c53300491e?auto=format&fit=crop&w=600&q=80' }}" alt="{{ $product->product_name }}">
                             </a>
                             <button class="market-wish-btn" type="button" aria-label="Add to wishlist">
                                 <svg viewBox="0 0 24 24">
@@ -286,17 +285,16 @@
                 </div>
 
                 <div class="market-product-grid">
-                    @foreach($recommendedCards as $product)
+@foreach($recommendedCards as $product)
                     @php
+                        $profile = $resolveProductProfile($product->product_name);
                         $distance = number_format(($product->product_id % 4) + 1.4, 1);
                         $hoursAgo = ($product->product_id % 6) + 1;
                         $badge = $product->product_status === 'withered' ? 'Withered' : (($product->product_id % 3 === 0) ? 'Slightly Withered' : 'Fresh');
-                        $profile = $resolveProductProfile($product->product_name);
-                        $img = $profile['image'];
                     @endphp
                     <article class="market-product-card">
                         <a href="{{ route('product.show', $product->product_id) }}" class="market-product-thumb">
-                            <img src="{{ $img }}" alt="{{ $product->product_name }}">
+                            <img src="{{ $product->image_url ?? 'https://images.unsplash.com/photo-1542838132-92c53300491e?auto=format&fit=crop&w=600&q=80' }}" alt="{{ $product->product_name }}">
                         </a>
                         <button class="market-wish-btn" type="button" aria-label="Add to wishlist">
                             <svg viewBox="0 0 24 24">

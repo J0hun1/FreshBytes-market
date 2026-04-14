@@ -39,6 +39,7 @@ Schema::create('products', function (Blueprint $table) {
             $table->integer('sell_count')->default(0);
             $table->date('offer_start_date')->nullable();
             $table->date('offer_end_date')->nullable();
+$table->string('image')->nullable()->after('product_name');
             $table->decimal('promo_price', 10, 2)->nullable();
             $table->timestamps();
         });
