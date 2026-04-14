@@ -202,7 +202,17 @@ Route::middleware('auth')->group(function () {
 Route::get('/seller/register', [SellerController::class, 'create'])->name('seller.register');
 Route::post('/seller/register', [SellerController::class, 'store']);
 
+Route::get('/seller/products/create', [SellerController::class, 'productCreate'])->name('seller.product.create');
+Route::post('/seller/products/create', [SellerController::class, 'productStore'])->name('seller.product.store');
+
+Route::get('/seller/dashboard', [SellerController::class, 'dashboard'])->name('seller.dashboard');
+
+Route::get('/seller/products/{product}/edit', [SellerController::class, 'productEdit'])->name('seller.product.edit');
+Route::put('/seller/products/{product}', [SellerController::class, 'productUpdate'])->name('seller.product.update');
+Route::delete('/seller/products/{product}', [SellerController::class, 'productDestroy'])->name('seller.product.destroy');
+
 Route::get('/account', [AccountController::class, 'index'])->name('account.index');
 Route::post('/account/settings', [AccountController::class, 'updateSettings'])->name('account.settings.update');
 });
+
 Route::match(['get', 'post'], '/forgot-password', [AuthController::class, 'forgotPassword'])->name('auth.forgot-password');

@@ -39,7 +39,8 @@ class Product extends Model
         'sell_count',
         'offer_start_date',
         'offer_end_date',
-        'promo_price'
+        'promo_price',
+        'image'
     ];
 
     protected $casts = [
@@ -52,6 +53,11 @@ class Product extends Model
         'offer_start_date' => 'date',
         'offer_end_date' => 'date',
     ];
+
+    public function getImageUrlAttribute()
+    {
+        return $this->image ? asset('storage/images/products/' . $this->image) : 'https://images.unsplash.com/photo-1542838132-92c53300491e?auto=format&fit=crop&w=600&q=80';
+    }
 
     public function user()
     {
