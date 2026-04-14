@@ -16,11 +16,11 @@
             <div class="auth-left">
                 <a href="{{ url('/') }}" class="auth-brand" aria-label="Go to homepage">
                     <img src="/images/FreshBytes_FinalNewLogoWhite.png" alt="FreshBytes logo">
-                    <span>FreshBytes</span>
+                    <span class="freshbytes-word">FreshBytes</span>
                 </a>
 
                 <h1>Hi There!</h1>
-                <p>Welcome back to FreshBytes</p>
+                <p>Welcome back to <span class="freshbytes-word">FreshBytes</span></p>
 
                 @if (session('status'))
                     <div class="auth-flash success">{{ session('status') }}</div>

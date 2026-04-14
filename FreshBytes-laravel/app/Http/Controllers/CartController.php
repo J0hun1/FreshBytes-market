@@ -12,45 +12,87 @@ use Illuminate\Support\Facades\Session;
 
 class CartController extends Controller
 {
+    private function storeCartItem(Product $product, int $quantity = 1): void
+    {
+        $cart = Session::get('cart', []);
+
+        if (!isset($cart[$product->product_id])) {
+            $cart[$product->product_id] = [
+                'name' => $product->product_name,
+                'price' => $product->product_price,
+                'quantity' => 0,
+                'image' => $product->image_url,
+            ];
+        }
+
+        $cart[$product->product_id]['quantity'] = (int) ($cart[$product->product_id]['quantity'] ?? 0) + max(1, $quantity);
+
+        Session::put('cart', $cart);
+    }
+
     public function add(Request $request, $id)
     {
         $product = Product::findOrFail($id);
-
-        // Use centralized catalog config for product images and details
-        $catalog = config('market_catalog');
-        $productProfiles = $catalog['products'] ?? [];
-        $fallbackProfile = $catalog['fallback'] ?? [];
-
-        // Resolve product profile
-        $normalized = strtolower(trim((string) $product->product_name));
-        $matchedProfile = $productProfiles[$normalized] ?? null;
-
-        if (!$matchedProfile) {
-            foreach ($productProfiles as $name => $profile) {
-                if (str_contains($normalized, $name) || str_contains($name, $normalized)) {
-                    $matchedProfile = $profile;
-                    break;
-                }
-            }
-        }
-
-        $profile = $matchedProfile ?? $fallbackProfile;
-        
-        $cart = Session::get('cart', []);
-        
-        $cart[$id] = [
-            'name' => $product->product_name,
-            'price' => $product->product_price,
-            'quantity' => ($cart[$id]['quantity'] ?? 0) + 1,
-            'image' => $profile['image'] ?? 'https://images.unsplash.com/photo-1542838132-92c53300491e?auto=format&fit=crop&w=1200&q=80'
-        ];
-        
-        Session::put('cart', $cart);
+        $this->storeCartItem($product);
 
         $anchor = trim((string) $request->input('return_anchor', 'fresh-near-you'));
         $fragment = $anchor !== '' ? '#' . ltrim($anchor, '#') : '';
 
         return redirect()->to(route('market.home') . $fragment)->with('success', 'Product added to cart!');
+    }
+
+    public function addRecipe(Request $request, string $slug)
+    {
+        $recipes = collect(config('market_catalog.recipe_articles', []));
+        $recipe = $recipes->firstWhere('slug', $slug);
+
+        if (!$recipe) {
+            abort(404);
+        }
+
+        $availableProducts = Product::where('is_active', true)
+            ->where('is_deleted', false)
+            ->get();
+
+        $addedProducts = 0;
+        $missingItems = [];
+
+        foreach (($recipe['shopping_items'] ?? []) as $item) {
+            $query = strtolower(trim((string) ($item['product_name'] ?? $item['name'] ?? '')));
+
+            if ($query === '') {
+                continue;
+            }
+
+            $matchedProduct = $availableProducts->first(function (Product $product) use ($query) {
+                $productName = strtolower(trim((string) $product->product_name));
+
+                return $productName === $query
+                    || str_contains($productName, $query)
+                    || str_contains($query, $productName);
+            });
+
+            if ($matchedProduct && (int) $matchedProduct->quantity > 0) {
+                $this->storeCartItem($matchedProduct, (int) ($item['quantity'] ?? 1));
+                $addedProducts++;
+            } else {
+                $missingItems[] = $item['name'] ?? $query;
+            }
+        }
+
+        if ($addedProducts === 0) {
+            return redirect()->back()->with('error', 'No FreshBytes products matched this recipe yet.');
+        }
+
+        $message = $addedProducts === 1
+            ? '1 recipe product added to cart.'
+            : $addedProducts . ' recipe products added to cart.';
+
+        if (!empty($missingItems)) {
+            $message .= ' Some ingredients could not be matched: ' . implode(', ', $missingItems) . '.';
+        }
+
+        return redirect()->back()->with('success', $message);
     }
     
     public function index()

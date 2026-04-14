@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Storage;
 
 class Product extends Model
 {
@@ -56,7 +57,35 @@ class Product extends Model
 
     public function getImageUrlAttribute()
     {
-        return $this->image ? asset('storage/images/products/' . $this->image) : 'https://images.unsplash.com/photo-1542838132-92c53300491e?auto=format&fit=crop&w=600&q=80';
+        $catalogProducts = config('market_catalog.products', []);
+        $normalizedName = strtolower(trim((string) $this->product_name));
+        $catalogImage = null;
+
+        if (isset($catalogProducts[$normalizedName]['image'])) {
+            $catalogImage = $catalogProducts[$normalizedName]['image'];
+        } else {
+            foreach ($catalogProducts as $name => $profile) {
+                if ((str_contains($normalizedName, $name) || str_contains($name, $normalizedName)) && isset($profile['image'])) {
+                    $catalogImage = $profile['image'];
+                    break;
+                }
+            }
+        }
+
+        $fallback = config('market_catalog.fallback.image', 'https://images.unsplash.com/photo-1542838132-92c53300491e?auto=format&fit=crop&w=600&q=80');
+
+        if (!$this->image) {
+            return $catalogImage ?? $fallback;
+        }
+
+        // Allow absolute URLs for legacy or externally hosted records.
+        if (filter_var($this->image, FILTER_VALIDATE_URL)) {
+            return $this->image;
+        }
+
+        return Storage::disk('public')->exists('images/products/' . $this->image)
+            ? asset('storage/images/products/' . $this->image)
+            : ($catalogImage ?? $fallback);
     }
 
     public function user()

@@ -16,7 +16,7 @@
             <div class="auth-left">
                 <a href="{{ url('/') }}" class="auth-brand" aria-label="Go to homepage">
                     <img src="/images/FreshBytes_FinalNewLogoWhite.png" alt="FreshBytes logo">
-                    <span>FreshBytes</span>
+                    <span class="freshbytes-word">FreshBytes</span>
                 </a>
 
                 <h1>Get Started</h1>

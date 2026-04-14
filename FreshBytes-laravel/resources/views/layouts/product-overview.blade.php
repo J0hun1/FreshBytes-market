@@ -33,9 +33,17 @@
         }
 
         $profile = $matchedProfile ?? $fallbackProfile;
-        $productImage = $profile['image'];
+        $productImage = $product->image_url;
         $rating = $product->top_rated ? 4.9 : 4.7;
         $sold = max(12, (int) ($product->sell_count ?? 0));
+        $freshnessLevel = $product->product_status === 'withered' ? 'Low Freshness' : 'Fresh';
+        $freshnessClass = $product->product_status === 'withered' ? 'warn' : 'ok';
+        $daysSinceHarvest = $product->harvest_date ? max(0, now()->diffInDays($product->harvest_date)) : 0;
+        $variationSeed = (($product->product_id ?? 0) % 9) + (strlen((string) $product->product_name) % 5);
+        $freshnessPercent = max(38, min(97, 96 - ($daysSinceHarvest * 3) - $variationSeed));
+        if ($product->product_status === 'withered') {
+            $freshnessPercent = min($freshnessPercent, 68);
+        }
 
         $dummyReviews = [
             ['name' => 'Mia G.', 'score' => 5, 'text' => 'Very fresh and crisp. Delivery was fast and packaging was neat.'],
@@ -71,6 +79,11 @@
 
                         <p class="market-product-distance">229.4 km away</p>
 
+                        <div class="market-product-freshness-row">
+                            <span>Freshness Level:</span>
+                            <span class="market-badge {{ $freshnessClass }}">{{ $freshnessLevel }} ({{ $freshnessPercent }}%)</span>
+                        </div>
+
                         <div class="market-product-side-meta">
                             <span>{{ $sold }} sold</span>
                             <button type="button" aria-label="Share">&#8599;</button>
@@ -84,6 +97,7 @@
                                 <button type="submit" class="market-detail-cart-btn">Add to cart</button>
                             </form>
                             <a href="{{ route('market.nutrition.value', \Illuminate\Support\Str::slug($product->product_name)) }}" class="market-detail-nutrition-link">View Nutrition</a>
+                            <button type="button" id="freshnessDetectBtn" class="market-detail-freshness-btn">Test Freshness Detection</button>
                         </div>
                     </div>
                 </div>
@@ -113,10 +127,50 @@
             </section>
         </main>
 
+        <div id="freshnessMobileModal" class="market-freshness-modal" hidden>
+            <div class="market-freshness-modal-card" role="dialog" aria-modal="true" aria-labelledby="freshnessMobileTitle">
+                <h2 id="freshnessMobileTitle">Freshness Detection Is Mobile-Only</h2>
+                <p>This feature is available only on the <span class="freshbytes-word">FreshBytes</span> mobile app.</p>
+                <div class="market-freshness-modal-actions">
+                    <a href="#" id="mobileDownloadBtn" class="market-detail-cart-btn">Download App</a>
+                    <button type="button" id="closeFreshnessModal" class="market-detail-nutrition-link">Close</button>
+                </div>
+            </div>
+        </div>
+
         <div class="market-shared-footer" id="market-footer">
             @include('layouts.footer')
         </div>
     </div>
+
+    <script>
+        window.addEventListener('DOMContentLoaded', function () {
+            const openBtn = document.getElementById('freshnessDetectBtn');
+            const modal = document.getElementById('freshnessMobileModal');
+            const closeBtn = document.getElementById('closeFreshnessModal');
+            const downloadBtn = document.getElementById('mobileDownloadBtn');
+
+            if (!openBtn || !modal) return;
+
+            openBtn.addEventListener('click', function () {
+                modal.hidden = false;
+            });
+
+            closeBtn?.addEventListener('click', function () {
+                modal.hidden = true;
+            });
+
+            modal.addEventListener('click', function (event) {
+                if (event.target === modal) {
+                    modal.hidden = true;
+                }
+            });
+
+            downloadBtn?.addEventListener('click', function (event) {
+                event.preventDefault();
+            });
+        });
+    </script>
 </body>
 
 </html>

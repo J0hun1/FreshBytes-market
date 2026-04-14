@@ -46,7 +46,7 @@
                 @foreach($products as $product)
                     @php
                         $profile = $resolveProductProfile($product->product_name);
-                        $img = $profile['image'];
+                        $img = $product->image_url;
                     @endphp
                     <article class="market-product-card">
                         <a href="{{ route('product.show', $product->product_id) }}" class="market-product-thumb">
@@ -57,8 +57,6 @@
                             <p class="market-product-price">₱{{ number_format($product->product_price, 2) }} / {{ $product->product_unit ?? 'kg' }}</p>
                             <p class="market-product-meta">{{ $product->sell_count ?? 0 }} sold</p>
                             <p class="market-product-loc"><span>{{ $profile['location'] ?? $product->product_location }}</span></p>
-                            <p class="market-product-copy">{{ $profile['detail'] }}</p>
-                            <p class="market-product-copy">{{ $profile['nutrition'] }}</p>
                             <form action="{{ route('cart.add', $product->product_id) }}" method="post" class="market-cart-form">
                                 @csrf
                                 <input type="hidden" name="return_anchor" value="fresh-near-you">

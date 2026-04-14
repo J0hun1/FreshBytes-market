@@ -68,7 +68,7 @@
             <!-- BRAND -->
             <a href="{{ route('market.home') }}" class="market-brand" aria-label="FreshBytes Home">
                 <img src="/images/FreshBytes_FinalNewLogoWhite.png" alt="FreshBytes logo">
-                <span>FreshBytes</span>
+                <span class="freshbytes-word">FreshBytes</span>
             </a>
 
             <form class="market-search" action="{{ route('market.home') }}" method="get">
@@ -169,7 +169,7 @@
                 <a href="{{ route('market.home') }}">Home</a>
                 <a href="{{ route('market.categories') }}">Categories</a>
                 <a href="#fresh-near-you">Shop</a>
-                <a href="{{ route('market.nutrition.profile') }}">Nutritional</a>
+                <a href="{{ route('market.home') }}#nutritional-products">Nutritional</a>
                 <a href="{{ route('seller.register') }}">Start Selling</a>
             </nav>
 
@@ -257,8 +257,6 @@
                                     </svg>
                                     <span>{{ $profile['location'] ?? $product->product_location }}</span>
                                 </p>
-                                <p class="market-product-copy">{{ $profile['detail'] }}</p>
-                                <p class="market-product-copy">{{ $profile['nutrition'] }}</p>
                                 <div class="market-product-foot">
                                     <span
                                         class="market-badge {{ $badge === 'Withered' ? 'warn' : ($badge === 'Slightly Withered' ? 'mid' : 'ok') }}">{{ $badge }}</span>
@@ -316,8 +314,6 @@
                                 </svg>
                                 <span>{{ $profile['location'] ?? $product->product_location }}</span>
                             </p>
-                            <p class="market-product-copy">{{ $profile['detail'] }}</p>
-                            <p class="market-product-copy">{{ $profile['nutrition'] }}</p>
                             <div class="market-product-foot">
                                 <span
                                     class="market-badge {{ $badge === 'Withered' ? 'warn' : ($badge === 'Slightly Withered' ? 'mid' : 'ok') }}">{{ $badge }}</span>
@@ -344,11 +340,11 @@
             <div class="market-article-grid">
                 @foreach($recipes as $recipe)
                     <article class="market-article-card">
-                        <img src="{{ $recipe['image'] }}" alt="{{ $recipe['title'] }} recipe image">
+                        <img src="{{ $recipe['image'] }}" alt="{{ $recipe['title'] }} recipe image" onerror="this.onerror=null;this.src='/images/nutritional_1.png';">
                         <div class="market-article-body">
-                            <p class="market-article-meta">FreshBytes Recipe <span>Philippine Kitchen</span></p>
+                            <p class="market-article-meta"><span class="freshbytes-word">FreshBytes</span> Recipe <span>Philippine Kitchen</span></p>
                             <h3>{{ $recipe['title'] }}</h3>
-                            <p>{{ $recipe['intro'] }}</p>
+                            <p class="market-article-snippet">{{ \Illuminate\Support\Str::limit($recipe['intro'] ?? 'Healthy Filipino recipe made from fresh local produce.', 92) }}</p>
                             <a href="{{ route('market.nutrition.recipe', $recipe['slug']) }}">Read Recipe</a>
                         </div>
                     </article>

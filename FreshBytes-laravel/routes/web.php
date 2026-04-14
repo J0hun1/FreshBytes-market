@@ -182,6 +182,7 @@ Route::get('/products/{id}', function ($id) {
 })->name('product.show');
 
 Route::post('/cart/add/{id}', [CartController::class, 'add'])->name('cart.add');
+Route::post('/cart/add-recipe/{slug}', [CartController::class, 'addRecipe'])->name('cart.recipe.add');
 Route::get('/cart', [CartController::class, 'index'])->name('cart.index');
 Route::post('/cart/update/{id}', [CartController::class, 'update'])->name('cart.update');
 Route::post('/cart/remove/{id}', [CartController::class, 'remove'])->name('cart.remove');

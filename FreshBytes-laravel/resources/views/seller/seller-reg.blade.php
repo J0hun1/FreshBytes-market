@@ -18,34 +18,34 @@
     <div class="market-page-wrap">
         @include('layouts.market-navbar')
 
-        <main class="max-w-2xl mx-auto my-12 px-4 md:px-8 lg:px-0">
+        <main class="max-w-3xl mx-auto my-8 px-4 md:px-6 lg:px-0">
             <!-- Hero Section -->
-            <div class="text-center mb-20 animate-fade-in">
-                <h1 class="text-4xl md:text-5xl lg:text-6xl font-black text-white mb-8 leading-tight drop-shadow-2xl">
+            <div class="text-center mb-10 animate-fade-in">
+                <h1 class="text-3xl md:text-4xl font-bold text-white mb-4 leading-tight drop-shadow-lg">
                     Become an Official Seller</h1>
-                <p class="text-xl md:text-2xl lg:text-3xl text-white/90 font-medium max-w-2xl mx-auto leading-relaxed">
+                <p class="text-base md:text-lg text-white font-medium max-w-2xl mx-auto leading-relaxed drop-shadow-sm">
                     Join thousands of local farmers & producers. List your fresh produce and reach customers looking for
                     quality at fair prices.</p>
             </div>
 
             <!-- Seller Registration Form -->
             <form id="sellerForm"
-                class="seller-form bg-white/10 backdrop-blur-xl border border-white/20 rounded-3xl shadow-2xl overflow-hidden"
+                class="seller-form bg-white/10 backdrop-blur-xl border border-white/20 rounded-2xl shadow-xl overflow-hidden"
                 style="position: relative; z-index: 2;">
                 @csrf
 
                 <!-- SECTION: BUSINESS INFO -->
-                <div class="form-section p-10 md:p-12 border-b border-white/10">
-                    <h3 class="text-2xl font-bold text-white mb-8 flex items-center gap-3">
+                <div class="form-section p-6 md:p-8 border-b border-white/10">
+                    <h3 class="text-xl font-bold text-white mb-5 flex items-center gap-3">
                         <span
                             class="w-10 h-10 bg-green-500/20 rounded-xl flex items-center justify-center text-green-400 font-bold text-lg">1</span>
                         Business Information
                     </h3>
 
-                    <div class="form-group mb-8">
-                        <label class="block text-white font-semibold text-lg mb-4">Business Name *</label>
+                    <div class="form-group mb-6">
+                        <label class="block text-white font-semibold text-base mb-2">Business Name *</label>
                         <input type="text" name="business_name" value="{{ old('business_name') }}" required
-                            class="w-full h-16 rounded-2xl border-2 border-white/30 bg-black/20 text-white placeholder-white/60 p-6 text-lg focus:border-green-400/70 focus:ring-4 focus:ring-green-400/30 focus:bg-white/10 transition-all duration-500 shadow-lg hover:shadow-green-500/20">
+                            class="w-full h-12 rounded-xl border border-white/30 bg-black/20 text-white placeholder-white/60 px-4 text-base focus:border-green-400/70 focus:ring-2 focus:ring-green-400/30 focus:bg-white/10 transition-all duration-300">
                         @error('business_name')
                             <span
                                 class="error text-red-400 text-sm mt-2 block font-medium animate-pulse">{{ $message }}</span>
@@ -53,9 +53,9 @@
                     </div>
 
                     <div class="form-group">
-                        <label class="block text-white font-semibold text-lg mb-4">Business Address *</label>
+                        <label class="block text-white font-semibold text-base mb-2">Business Address *</label>
                         <textarea name="business_address" rows="4" required
-                            class="w-full rounded-2xl border-2 border-white/30 bg-black/20 text-white placeholder-white/60 p-6 text-lg resize-vertical focus:border-green-400/70 focus:ring-4 focus:ring-green-400/30 focus:bg-white/10 transition-all duration-500 shadow-lg hover:shadow-green-500/20">{{ old('business_address') }}</textarea>
+                            class="w-full rounded-xl border border-white/30 bg-black/20 text-white placeholder-white/60 p-4 text-base resize-vertical focus:border-green-400/70 focus:ring-2 focus:ring-green-400/30 focus:bg-white/10 transition-all duration-300">{{ old('business_address') }}</textarea>
                         @error('business_address')
                             <span
                                 class="error text-red-400 text-sm mt-2 block font-medium animate-pulse">{{ $message }}</span>
@@ -64,18 +64,18 @@
                 </div>
 
                 <!-- SECTION: CONTACT -->
-                <div class="form-section two-col p-10 md:p-12">
-                    <h3 class="text-2xl font-bold text-white mb-8 flex items-center gap-3 col-span-full">
+                <div class="form-section two-col p-6 md:p-8">
+                    <h3 class="text-xl font-bold text-white mb-5 flex items-center gap-3 col-span-full">
                         <span
                             class="w-10 h-10 bg-emerald-500/20 rounded-xl flex items-center justify-center text-emerald-400 font-bold text-lg">2</span>
                         Contact Information
                     </h3>
 
-                    <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+                    <div class="grid grid-cols-1 lg:grid-cols-2 gap-5">
                         <div class="form-group">
-                            <label class="block text-white font-semibold text-lg mb-4">Phone Number *</label>
+                            <label class="block text-white font-semibold text-base mb-2">Phone Number *</label>
                             <input type="tel" name="business_phone" value="{{ old('business_phone') }}" required
-                                class="w-full h-16 rounded-2xl border-2 border-white/30 bg-black/20 text-white placeholder-white/60 p-6 text-lg focus:border-emerald-400/70 focus:ring-4 focus:ring-emerald-400/30 focus:bg-white/10 transition-all duration-500 shadow-lg hover:shadow-emerald-500/20">
+                                class="w-full h-12 rounded-xl border border-white/30 bg-black/20 text-white placeholder-white/60 px-4 text-base focus:border-emerald-400/70 focus:ring-2 focus:ring-emerald-400/30 focus:bg-white/10 transition-all duration-300">
                             @error('business_phone')
                                 <span
                                     class="error text-red-400 text-sm mt-2 block font-medium animate-pulse">{{ $message }}</span>
@@ -83,9 +83,9 @@
                         </div>
 
                         <div class="form-group">
-                            <label class="block text-white font-semibold text-lg mb-4">Business Email *</label>
+                            <label class="block text-white font-semibold text-base mb-2">Business Email *</label>
                             <input type="email" name="business_email" value="{{ old('business_email') }}" required
-                                class="w-full h-16 rounded-2xl border-2 border-white/30 bg-black/20 text-white placeholder-white/60 p-6 text-lg focus:border-emerald-400/70 focus:ring-4 focus:ring-emerald-400/30 focus:bg-white/10 transition-all duration-500 shadow-lg hover:shadow-emerald-500/20">
+                                class="w-full h-12 rounded-xl border border-white/30 bg-black/20 text-white placeholder-white/60 px-4 text-base focus:border-emerald-400/70 focus:ring-2 focus:ring-emerald-400/30 focus:bg-white/10 transition-all duration-300">
                             @error('business_email')
                                 <span
                                     class="error text-red-400 text-sm mt-2 block font-medium animate-pulse">{{ $message }}</span>
@@ -95,25 +95,25 @@
                 </div>
 
                 <!-- SECTION: FINANCIAL -->
-                <div class="form-section p-10 md:p-12">
-                    <h3 class="text-2xl font-bold text-white mb-8 flex items-center gap-3">
+                <div class="form-section p-6 md:p-8">
+                    <h3 class="text-xl font-bold text-white mb-5 flex items-center gap-3">
                         <span
                             class="w-10 h-10 bg-blue-500/20 rounded-xl flex items-center justify-center text-blue-400 font-bold text-lg">3</span>
                         Financial Information
                     </h3>
 
-                    <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+                    <div class="grid grid-cols-1 lg:grid-cols-2 gap-5">
                         <div class="form-group">
-                            <label class="block text-white font-semibold text-lg mb-4">Tax ID (Optional)</label>
+                            <label class="block text-white font-semibold text-base mb-2">Tax ID (Optional)</label>
                             <input type="text" name="tax_id" value="{{ old('tax_id') }}"
-                                class="w-full h-16 rounded-2xl border-2 border-white/30 bg-black/20 text-white placeholder-white/60 p-6 text-lg focus:border-blue-400/70 focus:ring-4 focus:ring-blue-400/30 focus:bg-white/10 transition-all duration-500 shadow-lg hover:shadow-blue-500/20">
+                                class="w-full h-12 rounded-xl border border-white/30 bg-black/20 text-white placeholder-white/60 px-4 text-base focus:border-blue-400/70 focus:ring-2 focus:ring-blue-400/30 focus:bg-white/10 transition-all duration-300">
                         </div>
 
                         <div class="form-group">
-                            <label class="block text-white font-semibold text-lg mb-2">Bank Details *</label>
+                            <label class="block text-white font-semibold text-base mb-2">Bank Details *</label>
                             <input type="text" name="bank_account_details" value="{{ old('bank_account_details') }}"
                                 required
-                                class="w-full h-16 rounded-2xl border-2 border-white/30 bg-black/20 text-white placeholder-white/60 p-6 text-lg focus:border-blue-400/70 focus:ring-4 focus:ring-blue-400/30 focus:bg-white/10 transition-all duration-500 shadow-lg hover:shadow-blue-500/20">
+                                class="w-full h-12 rounded-xl border border-white/30 bg-black/20 text-white placeholder-white/60 px-4 text-base focus:border-blue-400/70 focus:ring-2 focus:ring-blue-400/30 focus:bg-white/10 transition-all duration-300">
                             <small class="text-white/70 text-sm block mt-2 font-medium">Account number, bank name,
                                 account holder name</small>
                         </div>
@@ -121,9 +121,9 @@
                 </div>
 
                 <!-- SUBMIT -->
-                <div class="p-10 md:p-12 pt-0">
+                <div class="p-6 md:p-8 pt-0">
                     <button type="submit"
-                        class="submit-btn w-full h-20 text-2xl font-black rounded-3xl bg-gradient-to-r from-green-500 to-emerald-600 hover:from-green-600 hover:to-emerald-700 text-white shadow-2xl hover:shadow-green-500/50 transform hover:-translate-y-2 transition-all duration-500 flex items-center justify-center gap-4 text-shadow-lg">
+                        class="submit-btn w-full h-14 text-lg font-bold rounded-xl bg-gradient-to-r from-green-500 to-emerald-600 hover:from-green-600 hover:to-emerald-700 text-white shadow-xl hover:shadow-green-500/30 transition-all duration-300 flex items-center justify-center gap-3">
                         Become Official Seller
                         <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"

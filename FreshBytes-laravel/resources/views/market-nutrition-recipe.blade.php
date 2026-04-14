@@ -25,11 +25,68 @@
 
                 <p class="market-page-summary">{{ $recipe['intro'] }}</p>
 
-                <img src="{{ $recipe['image'] }}" alt="{{ $recipe['title'] }}" class="market-recipe-image">
+                <img src="{{ $recipe['image'] }}" alt="{{ $recipe['title'] }}" class="market-recipe-image" onerror="this.onerror=null;this.src='/images/nutritional_1.png';">
+
+                <div class="market-recipe-grid">
+                    <article class="market-recipe-content">
+                        <h2>Ingredients</h2>
+                        <ul class="market-recipe-list">
+                            @foreach(($recipe['ingredients'] ?? []) as $ingredient)
+                                <li>{{ $ingredient }}</li>
+                            @endforeach
+                        </ul>
+                    </article>
+
+                    <article class="market-recipe-content">
+                        <h2>Procedure</h2>
+                        <ol class="market-recipe-list market-recipe-steps">
+                            @foreach(($recipe['procedure'] ?? []) as $step)
+                                <li>{{ $step }}</li>
+                            @endforeach
+                        </ol>
+                    </article>
+                </div>
 
                 <article class="market-recipe-content">
-                    <h2>How to Prepare</h2>
-                    <p>{{ $recipe['content'] }}</p>
+                    <div class="market-page-head-row">
+                        <h2>FreshBytes Shopping List</h2>
+                        <form action="{{ route('cart.recipe.add', $recipe['slug']) }}" method="post">
+                            @csrf
+                            <button type="submit" class="market-cart-btn market-recipe-action-btn">Add recipe products to cart</button>
+                        </form>
+                    </div>
+
+                    @if(($shoppingItems ?? collect())->isNotEmpty())
+                        <div class="market-recipe-products">
+                            @foreach($shoppingItems as $item)
+                                <article class="market-recipe-product-card">
+                                    <div>
+                                        <h3>{{ $item['name'] }}</h3>
+                                        <p>{{ $item['quantity'] }} {{ $item['unit'] }}</p>
+                                        <p>{{ $item['stock_label'] }}</p>
+                                        @if($item['note'])
+                                            <p>{{ $item['note'] }}</p>
+                                        @endif
+                                    </div>
+
+                                    @if($item['product'])
+                                        <div class="market-recipe-product-meta">
+                                            <img src="{{ $item['product']->image_url }}" alt="{{ $item['product']->product_name }}">
+                                            <p>{{ $item['product']->product_name }}</p>
+                                            <form action="{{ route('cart.add', $item['product']->product_id) }}" method="post">
+                                                @csrf
+                                                <button type="submit" class="market-cart-btn market-recipe-item-btn">Add item</button>
+                                            </form>
+                                        </div>
+                                    @else
+                                        <p class="market-detail-text">No stocks available in FreshBytes yet.</p>
+                                    @endif
+                                </article>
+                            @endforeach
+                        </div>
+                    @else
+                        <p class="market-detail-text">No shopping items have been configured for this recipe yet.</p>
+                    @endif
                 </article>
             </section>
         </main>

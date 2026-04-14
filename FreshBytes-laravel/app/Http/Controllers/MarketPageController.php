@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Product;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 
@@ -145,6 +146,40 @@ class MarketPageController extends Controller
             abort(404);
         }
 
-        return view('market-nutrition-recipe', compact('recipe'));
+        $marketProducts = Product::where('is_active', true)
+            ->where('is_deleted', false)
+            ->get();
+
+        $shoppingItems = collect($recipe['shopping_items'] ?? [])
+            ->map(function (array $item) use ($marketProducts) {
+                $normalized = strtolower(trim((string) ($item['product_name'] ?? $item['name'] ?? '')));
+                $matchedProduct = null;
+
+                if ($normalized !== '') {
+                    $matchedProduct = $marketProducts->first(function (Product $product) use ($normalized) {
+                        $productName = strtolower(trim((string) $product->product_name));
+
+                        return $productName === $normalized
+                            || str_contains($productName, $normalized)
+                            || str_contains($normalized, $productName);
+                    });
+
+                    if ($matchedProduct && (int) $matchedProduct->quantity < 1) {
+                        $matchedProduct = null;
+                    }
+                }
+
+                return [
+                    'name' => $item['name'] ?? $item['product_name'] ?? 'Ingredient',
+                    'quantity' => $item['quantity'] ?? 1,
+                    'unit' => $item['unit'] ?? 'item',
+                    'note' => $item['note'] ?? null,
+                    'stock_label' => $matchedProduct ? 'In stock' : 'No stocks',
+                    'product' => $matchedProduct,
+                ];
+            })
+            ->values();
+
+        return view('market-nutrition-recipe', compact('recipe', 'shoppingItems'));
     }
 }

@@ -7,7 +7,7 @@
         <div class="market-topbar">
             <a href="{{ route('market.home') }}" class="market-brand" aria-label="FreshBytes Home">
                 <img src="/images/FreshBytes_FinalNewLogoWhite.png" alt="FreshBytes logo">
-                <span>FreshBytes</span>
+                <span class="freshbytes-word">FreshBytes</span>
             </a>
 
             <form class="market-search" action="{{ route('market.home') }}" method="get">
@@ -102,7 +102,7 @@
                 <a href="{{ route('market.home') }}">Home</a>
                 <a href="{{ route('market.categories') }}">Categories</a>
                 <a href="{{ route('market.products.nearby') }}">Shop</a>
-                <a href="{{ route('market.nutrition.profile') }}">Nutritional</a>
+                <a href="{{ route('market.home') }}#nutritional-products">Nutritional</a>
                 <a href="{{ route('seller.register') }}">Start Selling</a>
             </nav>
         </div>
